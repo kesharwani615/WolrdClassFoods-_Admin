@@ -15,8 +15,8 @@ const Layout = ({isAuthenticated}) => {
     if(isAccess && (pathname !== '/login')) {
       return (
         <>
-        <div class="full_container">
-          <div class="inner_container">
+        <div className="full_container">
+          <div className="inner_container">
             <Sidebar />
             <div id="content">
               <Header />
@@ -39,7 +39,7 @@ const Layout = ({isAuthenticated}) => {
 
   return (
     <>
-   {isAccessRoute(!isAuthenticated)}
+   {isAccessRoute(isAuthenticated)}
 </>
   )
 }

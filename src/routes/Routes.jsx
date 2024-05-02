@@ -6,9 +6,10 @@ import Product from "../pages/product/Product";
 import Login from "../pages/login/Login";
 import Layout from "../outlet/Layout";
 
-const isAuthenticated = true;
+// const isAuthenticated = true;
 
-export const routes = [
+export const routes = (isAuthenticated) => {
+  return[
     {
       path: '/',
       element: <Layout isAuthenticated={isAuthenticated}/>,
@@ -22,3 +23,6 @@ export const routes = [
       element: <Layout isAuthenticated={isAuthenticated}/>
     }
   ];
+}
+
+
