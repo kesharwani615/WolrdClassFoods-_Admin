@@ -53,6 +53,12 @@ const Sidebar = () => {
               </Link>
             </li>
             <li>
+              <Link to="/roles">
+                <FcNeutralTrading style={dashboardIconStyle} />
+                <span>Roles</span>
+              </Link>
+            </li>
+            <li>
               <Link to="/product">
                 <FcNeutralTrading style={dashboardIconStyle} />
                 <span>Products</span>

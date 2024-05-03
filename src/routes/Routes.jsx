@@ -6,6 +6,7 @@ import Product from "../pages/product/Product";
 import Login from "../pages/login/Login";
 import Layout from "../outlet/Layout";
 import Profile from "../pages/profile/Profile";
+import Roles from "../pages/role/Roles";
 
 // const isAuthenticated = true;
 
@@ -16,6 +17,7 @@ export const routes = (isAuthenticated) => {
       element: <Layout isAuthenticated={isAuthenticated}/>,
       children: [
         { path: '', element: <Dashboard /> },
+        { path: '/roles', element: <Roles /> },
         { path: '/product', element: <Product /> },
         { path: '/profile', element: <Profile /> }
       ],

@@ -33,10 +33,27 @@ const logoutApiResponse =  createAsyncThunk("/user/logout", async({formData,toas
 });
 
 
+const rolesApiResponse =  createAsyncThunk("/role/get-roles", async({toast})=>{
+    console.log('logout 2');
+    try{
+        console.log('logout 3');
+        const response=await api.fetchRoles();
+        console.log('logout 4');
+        toast.success(response.data.message,{position:"top-right"});
+        return {response:response?.data,isNavigate}
+    }catch(err){
+        console.log('logout 5');
+        toast.error(err?.response?.data?.statusCode?.message,{position:"top-right"});
+        return {error:err?.response?.data}
+    }
+});
+
+
 
 
 
 export {
     loginApiResponse,
-    logoutApiResponse
+    logoutApiResponse,
+    rolesApiResponse
 }

@@ -54,6 +54,8 @@ import { loginApiResponse, logoutApiResponse } from '../apiResponse';
                     state.error = "";
                     state.loading = false;
                     state.isNavigate = action.payload.isNavigate;
+                } else{
+                    state.loading = false;
                 }
             })
             .addCase(logoutApiResponse.rejected, (state, action) => {
