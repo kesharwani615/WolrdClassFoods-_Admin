@@ -1,9 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
-import apiMethod from "../../redux/api";
-import { useApiResponse } from "../../redux/apiResponse";
-import { useNavigate } from "react-router-dom";
+import { loginApiResponse } from "../../redux/apiResponse";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { inputError } from "../../includes/formError/InputError";
@@ -11,7 +9,6 @@ import { ColorRing } from "react-loader-spinner";
 
 const Login = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   const { loading } = useSelector((state) => state.auth);
   console.log("loading", loading);
@@ -28,10 +25,9 @@ const Login = () => {
         .required("Required"),
     }),
     onSubmit: (formData) => {
-      // alert(JSON.stringify(values, null, 2));
       console.log("values", formData);
       dispatch(
-        useApiResponse({ method: apiMethod.LOGIN, formData, toast, navigate })
+        loginApiResponse({ formData, toast, isNavigate:false })
       );
     },
   });

@@ -6,13 +6,13 @@ const API = axios.create({
 
 
 const login = (rowData) => API.post("/user/login", rowData); 
+const logout = (rowData) => API.post("/user/logout",rowData); 
 
 
 export {
-    login
+  API,
+    login,
+    logout
 }
 
 
-export default {
-  LOGIN:"login"
-}

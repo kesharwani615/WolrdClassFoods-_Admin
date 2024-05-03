@@ -1,13 +1,37 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { AiOutlineAlignRight, AiOutlineDown, AiOutlineLogout } from "react-icons/ai";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { logoutApiResponse } from "../redux/apiResponse";
+import { useDispatch, useSelector } from "react-redux";
+import { toast } from "react-toastify";
 
 const Header = () => {
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const { isNavigate } = useSelector((state) => state.auth);
 
   const toggleSidebar = () => {
     const sidebar = document.getElementById( 'sidebar' );
     sidebar.classList.toggle('active');
   };
+
+  
+
+  const logout = () => {
+    const formData = {};
+    console.log('logout 1');
+    dispatch(
+      logoutApiResponse({formData, toast, isNavigate:true })
+    );
+  };
+
+    useEffect(() => {
+    if(isNavigate){
+      navigate("/login");
+    }
+  },[isNavigate])
 
   return (
     <>
@@ -28,7 +52,7 @@ const Header = () => {
                         src="images/layout_img/user_img.jpg"
                         alt="#"
                       /> */}
-                      <span className="name_user">John David</span>
+                      <span className="name_user">Profile</span>
                       <AiOutlineDown style={{marginRight:"12px", color:"#ffff"}} />
 
                     </a>
@@ -36,9 +60,9 @@ const Header = () => {
                       <Link className="dropdown-item" to="/profile">
                         My Profile
                       </Link>
-                      <a className="dropdown-item" href="#">
-                        <span>Log Out</span> <AiOutlineLogout />
-                      </a>
+                      <p className="dropdown-item" onClick={logout}>
+                        <span onClick={logout}>Log Out</span> <AiOutlineLogout />
+                      </p>
                     </div>
                   </li>
                 </ul>
