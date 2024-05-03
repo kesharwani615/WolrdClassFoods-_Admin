@@ -5,17 +5,19 @@ import Dashboard from "../pages/Dashboard";
 import Product from "../pages/product/Product";
 import Login from "../pages/login/Login";
 import Layout from "../outlet/Layout";
+import Profile from "../pages/profile/Profile";
 
 // const isAuthenticated = true;
 
 export const routes = (isAuthenticated) => {
-  return[
+  return [
     {
       path: '/',
       element: <Layout isAuthenticated={isAuthenticated}/>,
       children: [
         { path: '', element: <Dashboard /> },
-        { path: '/product', element: <Product /> }
+        { path: '/product', element: <Product /> },
+        { path: '/profile', element: <Profile /> }
       ],
     },
     {

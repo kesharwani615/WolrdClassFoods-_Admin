@@ -1,5 +1,6 @@
 import React from "react";
 import { AiOutlineAlignRight, AiOutlineDown, AiOutlineLogout } from "react-icons/ai";
+import { Link } from "react-router-dom";
 
 const Header = () => {
 
@@ -32,9 +33,9 @@ const Header = () => {
 
                     </a>
                     <div className="dropdown-menu">
-                      <a className="dropdown-item" href="profile.html">
+                      <Link className="dropdown-item" to="/profile">
                         My Profile
-                      </a>
+                      </Link>
                       <a className="dropdown-item" href="#">
                         <span>Log Out</span> <AiOutlineLogout />
                       </a>

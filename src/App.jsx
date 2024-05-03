@@ -7,7 +7,7 @@ import { useState } from "react";
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState();
-  const user = useSelector((state) => state.auth?.user);
+  const {user} = useSelector((state) => state.auth);
   // localStorage.setItem("world_class_user",JSON.stringify(user));
 
   useEffect(()=>{
