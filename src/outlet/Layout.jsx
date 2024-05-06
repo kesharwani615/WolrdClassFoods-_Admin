@@ -2,7 +2,6 @@ import React, { Suspense, useEffect } from 'react';
 import Header from '../includes/Header';
 import Sidebar from '../includes/Sidebar';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
-import { ToastContainer } from 'react-toastify';
 import Loader from '../includes/Loader/Loader';
 import Login from '../pages/login/Login';
 
@@ -21,7 +20,6 @@ const Layout = ({isAuthenticated}) => {
             <div id="content">
               <Header />
               <ScrollToTop />
-              <ToastContainer />
               <Suspense fallback={<Loader />}><Outlet /></Suspense>
             </div>
           </div>

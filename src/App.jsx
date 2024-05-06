@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useState } from "react";
 import { API } from "./redux/api";
-import { toast } from "react-toastify";
+import {  ToastContainer, toast } from "react-toastify";
 
 
 
@@ -29,19 +29,20 @@ function App() {
       }
     );
 
-
   
-  console.log('world_class_user',world_class_user?.refreshToken);
   if(world_class_user?.accessToken && world_class_user?.refreshToken){
-    console.log('11');
     setIsAuthenticated(true);
   } else {
-    console.log('22');
     setIsAuthenticated(false);
   }
   });
 
-  return useRoutes(routes(isAuthenticated));
+  return(
+    <>
+    <ToastContainer />
+      {useRoutes(routes(isAuthenticated))}
+    </>
+  )
 };
 
 export default App;

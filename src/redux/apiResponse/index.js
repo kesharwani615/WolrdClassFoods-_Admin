@@ -8,43 +8,36 @@ import * as api from "../api";
 const loginApiResponse =  createAsyncThunk("/user/login", async({formData,toast,isNavigate})=>{
     try{
         const response=await api.login(formData);
-        toast.success(response.data.message,{position:"top-right"});
+        toast.success(response?.data?.message,{position:"top-right"});
         return {response:response?.data,isNavigate}
-    }catch(err){
-        console.log('...............three',err?.response?.data?.statusCode?.message);
-        toast.error(err?.response?.data?.statusCode?.message,{position:"top-right"});
-        return {error:err?.response?.data}
+    }catch(error){
+        console.log('eeeeeeeeeeeeeeeeeeeeeeeeeeeeee',`${error?.response?.data?.statusCode?.message} ${error?.response?.data?.message}`);
+        toast.error(`${error?.response?.data?.statusCode?.message} ${error?.response?.data?.message}`,{position:"top-right"});
+        return {error:error?.response?.data}
     }
 });
 
 const logoutApiResponse =  createAsyncThunk("/user/logout", async({formData,toast,isNavigate})=>{
-    console.log('logout 2');
     try{
-        console.log('logout 3');
         const response=await api.logout(formData);
-        console.log('logout 4');
         toast.success(response.data.message,{position:"top-right"});
         return {response:response?.data,isNavigate}
-    }catch(err){
-        console.log('logout 5');
-        toast.error(err?.response?.data?.statusCode?.message,{position:"top-right"});
-        return {error:err?.response?.data}
+    }catch(error){
+        toast.error(`${error?.response?.data?.statusCode?.message} ${error?.response?.data?.message}`,{position:"top-right"});
+        return {error:error?.response?.data}
     }
 });
 
 
 const rolesApiResponse =  createAsyncThunk("/role/get-roles", async({toast})=>{
-    console.log('logout 2');
+    console.log('roles 2');
     try{
-        console.log('logout 3');
         const response=await api.fetchRoles();
-        console.log('logout 4');
         toast.success(response.data.message,{position:"top-right"});
-        return {response:response?.data,isNavigate}
-    }catch(err){
-        console.log('logout 5');
-        toast.error(err?.response?.data?.statusCode?.message,{position:"top-right"});
-        return {error:err?.response?.data}
+        return {response:response?.data}
+    }catch(error){
+        toast.error(`${error?.response?.data?.statusCode?.message} ${error?.response?.data?.message}`,{position:"top-right"});
+        // return {error:err}
     }
 });
 
