@@ -30,9 +30,20 @@ const logoutApiResponse =  createAsyncThunk("/user/logout", async({formData,toas
 
 
 const rolesApiResponse =  createAsyncThunk("/role/get-roles", async({toast})=>{
-    console.log('roles 2');
     try{
         const response=await api.fetchRoles();
+        toast.success(response.data.message,{position:"top-right"});
+        return {response:response?.data}
+    }catch(error){
+        toast.error(`${error?.response?.data?.statusCode?.message} ${error?.response?.data?.message}`,{position:"top-right"});
+        // return {error:err}
+    }
+});
+
+
+const addRoleApiResponse =  createAsyncThunk("/role/register/", async({formData,toast})=>{
+    try{
+        const response=await api.addRole(formData);
         toast.success(response.data.message,{position:"top-right"});
         return {response:response?.data}
     }catch(error){
@@ -48,5 +59,6 @@ const rolesApiResponse =  createAsyncThunk("/role/get-roles", async({toast})=>{
 export {
     loginApiResponse,
     logoutApiResponse,
-    rolesApiResponse
+    rolesApiResponse,
+    addRoleApiResponse
 }

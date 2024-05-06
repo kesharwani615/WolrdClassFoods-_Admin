@@ -1,23 +1,49 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { rolesApiResponse } from "../../redux/apiResponse";
+import { addRoleApiResponse, rolesApiResponse } from "../../redux/apiResponse";
 import { toast } from "react-toastify";
 import moment from "moment";
+import InputFormModal from "../../includes/formModal/InputFormModal";
+import { useFormik } from "formik";
+import * as Yup from "yup";
 
 const Roles = () => {
   const dispatch = useDispatch();
+  const [isOpen, setIsOpen] = React.useState(false);
 
-  const { roles } = useSelector((state) => state.role);
+  const { roles,loading } = useSelector((state) => state.role);
   console.log("roles", roles);
+  
+  useEffect(() => {
+    setIsOpen(loading)
+  }, [loading]);
 
   useEffect(() => {
     dispatch(rolesApiResponse({ toast }));
   }, []);
 
-  const openModal = () => {
-    const myModal = document.getElementById('myModal');
-    myModal.show()
-  }
+  const inputName = [
+    
+     [{ keyName: "roleName", type:"text", label:"Role" }],
+    //  [{ keyName: "roleName", type:"text", label:"Role" },{ keyName: "roleName", type:"text", label:"Role" }] 
+    
+  ];
+
+  const formik = useFormik({
+    initialValues: {
+      roleName: ""
+
+    },
+    validationSchema: Yup.object({
+      roleName: Yup.string().max(15, "Must be 15 characters or less").required("Required")
+    }),
+    onSubmit: (formData) => {
+      console.log("values.............nn", formData);
+      dispatch(
+        addRoleApiResponse({ formData, toast})
+      );
+    },
+  });
 
   return (
     <>
@@ -41,6 +67,9 @@ const Roles = () => {
                   <div className="heading1 margin_0">
                     <h2>Roles List</h2>
                   </div>
+                  <div className="heading1 margin_0" style={{ float: "right" }}>
+                    <InputFormModal inputName={inputName} formik={formik} isOpen={isOpen} />
+                  </div>
                 </div>
                 <div className="table_section padding_infor_info">
                   <div className="table-responsive-sm">
@@ -55,15 +84,17 @@ const Roles = () => {
                         </tr>
                       </thead>
                       <tbody>
-                       {(roles && roles.length) && roles.map((role,index)=>(
-                        <tr key={index}>
-                          <td>{index + 1}</td>
-                          <td>{role?.roleName}</td>
-                          <td>{role?.isActive ? 'Active' : "Inactive"}</td>
-                          <td>{ moment(role?.createdAt).format('ll')}</td>
-                          <td></td>
-                        </tr>
-                       )) }
+                        {roles &&
+                          roles?.length &&
+                          roles?.map((role, index) => (
+                            <tr key={index}>
+                              <td>{index + 1}</td>
+                              <td>{role?.roleName}</td>
+                              <td>{role?.isActive ? "Active" : "Inactive"}</td>
+                              <td>{moment(role?.createdAt).format("ll")}</td>
+                              <td></td>
+                            </tr>
+                          ))}
                       </tbody>
                     </table>
                   </div>

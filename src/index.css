@@ -19,3 +19,53 @@
     background: #1ed085; /* color of the scrollbar on hover */
 }
 
+.add__modal_button{
+    padding: 8px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.customModalSmall {
+  background: #b2dbbf;
+  max-width: 500px;
+  width: 100%;
+}
+.customModallarge {
+  background: #b2dbbf;
+  max-width: 900px;
+  width: 100%;
+}
+
+@keyframes customEnterOverlayAnimation {
+    0% {
+      transform: scale(0);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+  @keyframes customLeaveOverlayAnimation {
+    0% {
+      transform: scale(1);
+    }
+    100% {
+      transform: scale(0);
+    }
+  }
+  
+  @keyframes customEnterModalAnimation {
+    0% {
+      transform: scale(0.2);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+  @keyframes customLeaveModalAnimation {
+    0% {
+      transform: scale(1);
+    }
+    100% {
+      transform: scale(0.2);
+    }
+  }

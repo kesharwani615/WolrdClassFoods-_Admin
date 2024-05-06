@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { rolesApiResponse } from '../apiResponse';
+import { rolesApiResponse,addRoleApiResponse } from '../apiResponse';
 
   export const roleSlice = createSlice({
     name:"role",
@@ -18,7 +18,6 @@ import { rolesApiResponse } from '../apiResponse';
                 state.loading = true;
             })
             .addCase(rolesApiResponse.fulfilled, (state, action) => {
-                console.log('action.payload?.response==========',action.payload);
                 if(action.payload?.response?.statusCode === 200){
                     state.roles = action.payload?.response?.data;
                     state.message = action.payload?.response?.message;
@@ -29,6 +28,28 @@ import { rolesApiResponse } from '../apiResponse';
                 }
             })
             .addCase(rolesApiResponse.rejected, (state, action) => {
+                state.message = "";
+                console.log('errrrr',action?.error);
+                state.error = action.error.message;
+                state.loading = false;
+            })
+           .addCase(addRoleApiResponse.pending, (state, action) => {
+                state.message = "";
+                state.error = "";
+                state.loading = true;
+            })
+            .addCase(addRoleApiResponse.fulfilled, (state, action) => {
+                console.log('action.payload?.response==========',action.payload);
+                if(!!action.payload?.response?.success){
+                    state.roles = [...state.roles,action.payload?.response?.data];
+                    state.message = action.payload?.response?.message;
+                    state.error = "";
+                    state.loading = false;
+                } else {
+                    state.loading = false;
+                }
+            })
+            .addCase(addRoleApiResponse.rejected, (state, action) => {
                 state.message = "";
                 console.log('errrrr',action?.error);
                 state.error = action.error.message;
