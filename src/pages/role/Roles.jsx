@@ -78,9 +78,12 @@ const Roles = () => {
 
 
 const handleDelete = (formData) => {
-  console.log('iiiiiii',formData);
   dispatch(deleteRoleApiResponse({formData,toast}))
-}
+};
+
+const updateStatus = (formData) => {
+  dispatch(updateRoleApiResponse({ formData, toast}))
+};
  
 
   return (
@@ -124,12 +127,10 @@ const handleDelete = (formData) => {
                             <tr key={index}>
                               <td>{index + 1}</td>
                               <td>{role?.roleName}</td>
-                              <td>{role?.isActive ? "Active" : "Inactive"}</td>
+                              <td>{role?.isActive ? <span className="active__Status" onClick={()=>updateStatus({_id:role?._id,isActive:false})}>Active</span> : <span className="inactive__Status" onClick={()=>updateStatus({_id:role?._id,isActive:true})} >Inactive</span>}</td>
                               <td>{moment(role?.createdAt).format("ll")}</td>
                               <td>
                               <UpdateFormModal inputName={inputName} formik={updateFormik} isOpen={isUpdateOpen} loading={loading} currentValue={role} onPatchValueHandler={(value)=> onPatchValueHandler(value)} />
-                              {/* <RiDeleteBin6Line onClick={() => deleteRole({_id:role?._id})}  style={{color:"red", cursor:"pointer", fontSize:"20px"}} title="delete" />  */}
-                              {/* <RiDeleteBin6Line onClick={() => deleteRole({_id:role?._id})}  style={{color:"red", cursor:"pointer", fontSize:"20px"}} title="delete" />  */}
                               <DeleteFormModal handleDelete={handleDelete} itemId={{_id:role?._id}} isDeleteOpen={isDeleteOpen} loading={loading} />
                               </td>
                             </tr>

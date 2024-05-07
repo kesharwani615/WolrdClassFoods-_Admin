@@ -36,7 +36,7 @@ const rolesApiResponse =  createAsyncThunk("/role/get-roles", async({toast})=>{
         return {response:response?.data}
     }catch(error){
         toast.error(`${error?.response?.data?.statusCode?.message} ${error?.response?.data?.message}`,{position:"top-right"});
-        // return {error:err}
+        throw error
     }
 });
 
@@ -48,7 +48,7 @@ const addRoleApiResponse =  createAsyncThunk("/role/register/", async({formData,
         return {response:response?.data}
     }catch(error){
         toast.error(`${error?.response?.data?.statusCode?.message} ${error?.response?.data?.message}`,{position:"top-right"});
-        // return {error:err}
+        throw error
     }
 });
 
@@ -75,6 +75,18 @@ const deleteRoleApiResponse =  createAsyncThunk("/role/delete/id", async({formDa
 });
 
 
+const addCategoryApiResponse =  createAsyncThunk("/category/register/", async({formData,toast})=>{
+    try{
+        const response=await api.addCategory(formData);
+        toast.success(response.data.message,{position:"top-right"});
+        return {response:response?.data}
+    }catch(error){
+        toast.error(`${error?.response?.data?.statusCode?.message} ${error?.response?.data?.message}`,{position:"top-right"});
+        throw error
+    }
+});
+
+
 
 
 
@@ -84,5 +96,6 @@ export {
     rolesApiResponse,
     addRoleApiResponse,
     updateRoleApiResponse,
-    deleteRoleApiResponse
+    deleteRoleApiResponse,
+    addCategoryApiResponse
 }

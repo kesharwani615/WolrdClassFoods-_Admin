@@ -15,6 +15,9 @@ const updateRole = (rowData) => API.patch(`/role/update/${rowData?._id}`,rowData
 const deleteRole = (rowData) => API.delete(`/role/delete/${rowData?._id}`);
 const getRole = (id) => API.get(`/role/get-role/${_id}`);
 
+//Product Category
+const addCategory = (formData) => API.post("/category/register",formData);
+
 
 export {
   API,
@@ -24,7 +27,8 @@ export {
     addRole,
     updateRole,
     deleteRole,
-    getRole
+    getRole,
+    addCategory
 }
 
 

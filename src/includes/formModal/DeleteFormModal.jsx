@@ -6,7 +6,9 @@ const DeleteFormModal = ({handleDelete, itemId, loading,isDeleteOpen = false}) =
     const [open, setOpen] = useState(false);
 
     useEffect(()=>{
-      setOpen(isDeleteOpen);
+      if(!isDeleteOpen){
+        setOpen(isDeleteOpen);
+      }
   },[isDeleteOpen])
 
   const onOpenModal = () => setOpen(true);

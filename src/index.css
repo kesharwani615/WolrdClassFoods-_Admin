@@ -36,7 +36,18 @@
   width: 100%;
 }
 
-
+.active__Status{
+  padding: 5px 17px;
+  background-color: #1ed085;
+  color: #fff;
+  cursor: pointer;
+}
+.inactive__Status{
+  padding: 5px 10px;
+  background-color: #d0391e;
+  color: #fff;
+  cursor: pointer;
+}
 
 @keyframes customEnterOverlayAnimation {
     0% {
