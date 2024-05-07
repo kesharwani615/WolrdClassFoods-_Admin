@@ -4,20 +4,24 @@ import { Modal } from "react-responsive-modal";
 import { inputError } from "../formError/InputError";
 import { FaEdit } from "react-icons/fa";
 
-const UpdateFormModal = ({ inputName,formik, loading, isOpen = false }) => {
+const UpdateFormModal = ({ inputName,formik, loading, onPatchValueHandler,currentValue, isOpen = false }) => {
   const [open, setOpen] = React.useState(false);
-  
+
+
+  const onClickHandler = () => {
+    onPatchValueHandler(currentValue);
+     setOpen(true)
+  };
+ 
+
   useEffect(()=>{
-      console.log('isOpenisOpenisOpen.....',isOpen);
-      setOpen(isOpen);
       if(!isOpen){
-        formik.resetForm();
+        setOpen(isOpen);
       }
   },[isOpen])
 
 
   const printsAllInputFields = (inputName) => {
-    console.log('inputName=========',inputName);
    return inputName.map((inputType, index) => {
     const numberOfKeys = Number(Object.keys(inputType)?.length);
     switch (numberOfKeys) {
@@ -77,9 +81,10 @@ const UpdateFormModal = ({ inputName,formik, loading, isOpen = false }) => {
    })
   };
 
+
   return (
     <>
-      <FaEdit onClick={() => setOpen(true)} style={{color:"green", cursor:"pointer", fontSize:"20px", marginRight:"4px"}} title="edit" />
+      <FaEdit onClick={onClickHandler} style={{color:"green", cursor:"pointer", fontSize:"20px", marginRight:"4px"}} title="edit" />
 
       <Modal
         open={open}
@@ -107,7 +112,7 @@ const UpdateFormModal = ({ inputName,formik, loading, isOpen = false }) => {
                     </>
               </div>
 
-              { loading ? <button type="submit" className="btn btn-primary">wait...</button> : <button type="submit" className="btn btn-primary">Save</button>}
+              { loading ? <button type="submit" className="btn btn-primary">saving...</button> : <button type="submit" className="btn btn-primary">Save</button>}
             </form>
           </div>
         </div>

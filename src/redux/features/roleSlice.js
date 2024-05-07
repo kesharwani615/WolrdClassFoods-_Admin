@@ -8,6 +8,7 @@ import { rolesApiResponse,addRoleApiResponse, updateRoleApiResponse } from '../a
         error:"",
         loading:false,
         isModalOpen:false,
+        isUpdateModalOpen:false,
         isNavigate:false
     },
     reducers: {},
@@ -25,10 +26,8 @@ import { rolesApiResponse,addRoleApiResponse, updateRoleApiResponse } from '../a
                     state.message = action.payload?.response?.message;
                     state.error = "";
                     state.loading = false;
-                    // state.isModalOpen = false;
                 } else {
                     state.loading = false;
-                    // state.isModalOpen = false;
                 }
             })
             .addCase(rolesApiResponse.rejected, (state, action) => {
@@ -67,34 +66,34 @@ import { rolesApiResponse,addRoleApiResponse, updateRoleApiResponse } from '../a
                 state.message = "";
                 state.error = "";
                 state.loading = true;
-                state.isModalOpen = true;
+                state.isUpdateModalOpen = true;
             })
             .addCase(updateRoleApiResponse.fulfilled, (state, action) => {
                 console.log('action.payload?.response===update=======',action.payload);
                 if(!!action.payload?.response?.success){
                     state.roles = state.roles.map((x)=> {
-                         if(x._id === action.payload.data._id ){
-                            x.roleName = action?.payload?.data?.roleName
-                            x.isActive = action?.payload.data?.isActive
-                            x.createdAt = action?.payload?.data?.createdAt
+                         if(x._id === action.payload?.response?.data._id ){
+                            x.roleName = action?.payload?.response?.data?.roleName
+                            x.isActive = action?.payload?.response?.data?.isActive
+                            x.createdAt = action?.payload?.response?.data?.createdAt
                          }
                          return x;
                     })
                     state.message = action.payload?.response?.message;
                     state.error = "";
                     state.loading = false;
-                    state.isModalOpen = false;
+                    state.isUpdateModalOpen = false;
                 } else {
                     state.loading = false;
-                    state.isModalOpen = true;
+                    state.isUpdateModalOpen = true;
                 }
             })
             .addCase(updateRoleApiResponse.rejected, (state, action) => {
                 state.message = "";
-                console.log('errrrr',action?.error);
+                console.log('updateRoleApiResponse errrrr',action?.error);
                 state.error = action.error.message;
                 state.loading = false;
-                state.isModalOpen = true;
+                state.isUpdateModalOpen = true;
             })
             
         

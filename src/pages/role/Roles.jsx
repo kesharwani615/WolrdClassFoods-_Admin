@@ -1,6 +1,6 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addRoleApiResponse, rolesApiResponse } from "../../redux/apiResponse";
+import { addRoleApiResponse, rolesApiResponse, updateRoleApiResponse } from "../../redux/apiResponse";
 import { toast } from "react-toastify";
 import moment from "moment";
 import { useFormik } from "formik";
@@ -11,30 +11,31 @@ import UpdateFormModal from "../../includes/formModal/UpdateFormModal";
 
 const Roles = () => {
   const dispatch = useDispatch();
-  const [isOpen, setIsOpen] = React.useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+  const [isUpdateOpen, setIsUpdateOpen] = useState(false);
 
-  const { roles,loading,isModalOpen } = useSelector((state) => state.role);
-  console.log("roles", roles);
+  const { roles,loading,isModalOpen,isUpdateModalOpen } = useSelector((state) => state.role);
   
   useEffect(() => {
     setIsOpen(isModalOpen)
   }, [isModalOpen]);
 
   useEffect(() => {
+    setIsUpdateOpen(isUpdateModalOpen)
+  }, [isUpdateModalOpen]);
+
+  useEffect(() => {
     dispatch(rolesApiResponse({ toast }));
   }, []);
 
   const inputName = [
-    
      [{ keyName: "roleName", type:"text", label:"Role" }],
     //  [{ keyName: "roleName", type:"text", label:"Role" },{ keyName: "roleName", type:"text", label:"Role" }] 
-    
   ];
   
   const formik = useFormik({
     initialValues: {
       roleName: ""
-
     },
     validationSchema: Yup.object({
       roleName: Yup.string().max(15, "Must be 15 characters or less").required("Required")
@@ -45,6 +46,30 @@ const Roles = () => {
       );
     },
   });
+
+  // update form 
+  const updateFormik = useFormik({
+    initialValues: {
+      _id:"",
+      roleName: ""
+    },
+    validationSchema: Yup.object({
+      roleName: Yup.string().max(15, "Must be 15 characters or less").required("Required")
+    }),
+    onSubmit: (formData) => {
+      console.log('update submit',formData);
+      dispatch(
+        updateRoleApiResponse({ formData, toast})
+      );
+    },
+  });
+
+
+  const onPatchValueHandler = (role) => {
+    updateFormik.setValues({_id:role?._id,roleName:role?.roleName})
+  };
+
+ 
 
   return (
     <>
@@ -90,7 +115,7 @@ const Roles = () => {
                               <td>{role?.isActive ? "Active" : "Inactive"}</td>
                               <td>{moment(role?.createdAt).format("ll")}</td>
                               <td>
-                              <UpdateFormModal inputName={inputName} formik={formik} isOpen={isOpen} loading={loading} />
+                              <UpdateFormModal inputName={inputName} formik={updateFormik} isOpen={isUpdateOpen} loading={loading} currentValue={role} onPatchValueHandler={(value)=> onPatchValueHandler(value)} />
                               <RiDeleteBin6Line  style={{color:"red", cursor:"pointer", fontSize:"20px"}} title="delete" /> </td>
                             </tr>
                           ))}

@@ -16,7 +16,6 @@ const AddFormModal = ({ inputName,formik, loading, isOpen = false }) => {
 
 
   const printsAllInputFields = (inputName) => {
-    console.log('inputName=========',inputName);
    return inputName.map((inputType, index) => {
     const numberOfKeys = Number(Object.keys(inputType)?.length);
     switch (numberOfKeys) {

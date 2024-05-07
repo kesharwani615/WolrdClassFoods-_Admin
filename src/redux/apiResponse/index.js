@@ -59,7 +59,7 @@ const updateRoleApiResponse =  createAsyncThunk("/role/update/id", async({formDa
         return {response:response?.data}
     }catch(error){
         toast.error(`${error?.response?.data?.statusCode?.message} ${error?.response?.data?.message}`,{position:"top-right"});
-        // return {error:err}
+        throw error
     }
 });
 
