@@ -2,13 +2,17 @@ import React, { useEffect } from "react";
 import "react-responsive-modal/styles.css";
 import { Modal } from "react-responsive-modal";
 import { inputError } from "../formError/InputError";
+import { FaEdit } from "react-icons/fa";
 
-const InputFormModal = ({ inputName,formik, isOpen }) => {
+const UpdateFormModal = ({ inputName,formik, loading, isOpen = false }) => {
   const [open, setOpen] = React.useState(false);
   
   useEffect(()=>{
-      console.log('isOpenisOpenisOpen',isOpen);
-      setOpen(isOpen)
+      console.log('isOpenisOpenisOpen.....',isOpen);
+      setOpen(isOpen);
+      if(!isOpen){
+        formik.resetForm();
+      }
   },[isOpen])
 
 
@@ -75,9 +79,7 @@ const InputFormModal = ({ inputName,formik, isOpen }) => {
 
   return (
     <>
-      <button className="add__modal_button" onClick={() => setOpen(true)}>
-        Add
-      </button>
+      <FaEdit onClick={() => setOpen(true)} style={{color:"green", cursor:"pointer", fontSize:"20px", marginRight:"4px"}} title="edit" />
 
       <Modal
         open={open}
@@ -97,8 +99,7 @@ const InputFormModal = ({ inputName,formik, isOpen }) => {
       >
         <div className="card">
           <div className="card-body">
-            <h5 className="card-title">Card title</h5>
-            <h6 className="card-subtitle mb-2 text-muted">Card subtitle</h6>
+            <h5 className="card-title">Update Role</h5>
             <form onSubmit={formik.handleSubmit}>
               <div className="form-row">
                     <>
@@ -106,9 +107,7 @@ const InputFormModal = ({ inputName,formik, isOpen }) => {
                     </>
               </div>
 
-              <button type="submit" className="btn btn-primary">
-                Save
-              </button>
+              { loading ? <button type="submit" className="btn btn-primary">wait...</button> : <button type="submit" className="btn btn-primary">Save</button>}
             </form>
           </div>
         </div>
@@ -117,4 +116,5 @@ const InputFormModal = ({ inputName,formik, isOpen }) => {
   );
 };
 
-export default InputFormModal;
+export default UpdateFormModal;
+

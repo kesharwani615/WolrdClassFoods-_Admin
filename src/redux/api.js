@@ -11,9 +11,9 @@ const logout = (rowData) => API.post("/user/logout",rowData);
 // roles opreations
 const fetchRoles = () => API.get("/role/get-roles");
 const addRole = (rowData) => API.post("/role/register",rowData);
-const updateRole = (rowData) => API.patch(`/role/update/${rowData.id}`,rowData);
-const deleteRole = (rowData) => API.delete(`/role/delete/${rowData.id}`);
-const getRole = (id) => API.get(`/role/get-role/${id}`);
+const updateRole = (rowData) => API.patch(`/role/update/${rowData?._id}`,rowData);
+const deleteRole = (rowData) => API.delete(`/role/delete/${rowData?._id}`);
+const getRole = (id) => API.get(`/role/get-role/${_id}`);
 
 
 export {

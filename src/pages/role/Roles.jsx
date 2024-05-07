@@ -3,20 +3,22 @@ import { useDispatch, useSelector } from "react-redux";
 import { addRoleApiResponse, rolesApiResponse } from "../../redux/apiResponse";
 import { toast } from "react-toastify";
 import moment from "moment";
-import InputFormModal from "../../includes/formModal/InputFormModal";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import { RiDeleteBin6Line } from "react-icons/ri";
+import AddFormModal from "../../includes/formModal/AddFormModal";
+import UpdateFormModal from "../../includes/formModal/UpdateFormModal";
 
 const Roles = () => {
   const dispatch = useDispatch();
   const [isOpen, setIsOpen] = React.useState(false);
 
-  const { roles,loading } = useSelector((state) => state.role);
+  const { roles,loading,isModalOpen } = useSelector((state) => state.role);
   console.log("roles", roles);
   
   useEffect(() => {
-    setIsOpen(loading)
-  }, [loading]);
+    setIsOpen(isModalOpen)
+  }, [isModalOpen]);
 
   useEffect(() => {
     dispatch(rolesApiResponse({ toast }));
@@ -28,7 +30,7 @@ const Roles = () => {
     //  [{ keyName: "roleName", type:"text", label:"Role" },{ keyName: "roleName", type:"text", label:"Role" }] 
     
   ];
-
+  
   const formik = useFormik({
     initialValues: {
       roleName: ""
@@ -38,7 +40,6 @@ const Roles = () => {
       roleName: Yup.string().max(15, "Must be 15 characters or less").required("Required")
     }),
     onSubmit: (formData) => {
-      console.log("values.............nn", formData);
       dispatch(
         addRoleApiResponse({ formData, toast})
       );
@@ -47,10 +48,6 @@ const Roles = () => {
 
   return (
     <>
-      {/* <div id="content">
-                  
-               </div> */}
-
       <div className="midde_cont">
         <div className="container-fluid">
           <div className="row column_title">
@@ -68,7 +65,7 @@ const Roles = () => {
                     <h2>Roles List</h2>
                   </div>
                   <div className="heading1 margin_0" style={{ float: "right" }}>
-                    <InputFormModal inputName={inputName} formik={formik} isOpen={isOpen} />
+                    <AddFormModal inputName={inputName} formik={formik} isOpen={isOpen} loading={loading} />
                   </div>
                 </div>
                 <div className="table_section padding_infor_info">
@@ -92,7 +89,9 @@ const Roles = () => {
                               <td>{role?.roleName}</td>
                               <td>{role?.isActive ? "Active" : "Inactive"}</td>
                               <td>{moment(role?.createdAt).format("ll")}</td>
-                              <td></td>
+                              <td>
+                              <UpdateFormModal inputName={inputName} formik={formik} isOpen={isOpen} loading={loading} />
+                              <RiDeleteBin6Line  style={{color:"red", cursor:"pointer", fontSize:"20px"}} title="delete" /> </td>
                             </tr>
                           ))}
                       </tbody>

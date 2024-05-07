@@ -52,6 +52,17 @@ const addRoleApiResponse =  createAsyncThunk("/role/register/", async({formData,
     }
 });
 
+const updateRoleApiResponse =  createAsyncThunk("/role/update/id", async({formData,toast})=>{
+    try{
+        const response=await api.updateRole(formData);
+        toast.success(response.data.message,{position:"top-right"});
+        return {response:response?.data}
+    }catch(error){
+        toast.error(`${error?.response?.data?.statusCode?.message} ${error?.response?.data?.message}`,{position:"top-right"});
+        // return {error:err}
+    }
+});
+
 
 
 
@@ -60,5 +71,6 @@ export {
     loginApiResponse,
     logoutApiResponse,
     rolesApiResponse,
-    addRoleApiResponse
+    addRoleApiResponse,
+    updateRoleApiResponse
 }
