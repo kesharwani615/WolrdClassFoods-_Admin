@@ -1,3 +1,4 @@
+import "react-responsive-modal/styles.css";
 import { useRoutes } from "react-router-dom";
 import { routes } from "./routes/Routes";
 import { useEffect } from "react";

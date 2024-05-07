@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addRoleApiResponse, rolesApiResponse, updateRoleApiResponse } from "../../redux/apiResponse";
+import { addRoleApiResponse, rolesApiResponse, updateRoleApiResponse, deleteRoleApiResponse } from "../../redux/apiResponse";
 import { toast } from "react-toastify";
 import moment from "moment";
 import { useFormik } from "formik";
@@ -8,14 +8,17 @@ import * as Yup from "yup";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import AddFormModal from "../../includes/formModal/AddFormModal";
 import UpdateFormModal from "../../includes/formModal/UpdateFormModal";
+import DeleteFormModal from "../../includes/formModal/DeleteFormModal";
 
 const Roles = () => {
   const dispatch = useDispatch();
   const [isOpen, setIsOpen] = useState(false);
   const [isUpdateOpen, setIsUpdateOpen] = useState(false);
+  const [isDeleteOpen, setIsDeleteOpen] = useState(false);
 
-  const { roles,loading,isModalOpen,isUpdateModalOpen } = useSelector((state) => state.role);
+  const { roles,loading,isModalOpen,isUpdateModalOpen, isDeleteModalOpen } = useSelector((state) => state.role);
   
+
   useEffect(() => {
     setIsOpen(isModalOpen)
   }, [isModalOpen]);
@@ -23,6 +26,10 @@ const Roles = () => {
   useEffect(() => {
     setIsUpdateOpen(isUpdateModalOpen)
   }, [isUpdateModalOpen]);
+
+  useEffect(() => {
+    setIsDeleteOpen(isDeleteModalOpen)
+  }, [isDeleteModalOpen]);
 
   useEffect(() => {
     dispatch(rolesApiResponse({ toast }));
@@ -69,6 +76,11 @@ const Roles = () => {
     updateFormik.setValues({_id:role?._id,roleName:role?.roleName})
   };
 
+
+const handleDelete = (formData) => {
+  console.log('iiiiiii',formData);
+  dispatch(deleteRoleApiResponse({formData,toast}))
+}
  
 
   return (
@@ -116,7 +128,10 @@ const Roles = () => {
                               <td>{moment(role?.createdAt).format("ll")}</td>
                               <td>
                               <UpdateFormModal inputName={inputName} formik={updateFormik} isOpen={isUpdateOpen} loading={loading} currentValue={role} onPatchValueHandler={(value)=> onPatchValueHandler(value)} />
-                              <RiDeleteBin6Line  style={{color:"red", cursor:"pointer", fontSize:"20px"}} title="delete" /> </td>
+                              {/* <RiDeleteBin6Line onClick={() => deleteRole({_id:role?._id})}  style={{color:"red", cursor:"pointer", fontSize:"20px"}} title="delete" />  */}
+                              {/* <RiDeleteBin6Line onClick={() => deleteRole({_id:role?._id})}  style={{color:"red", cursor:"pointer", fontSize:"20px"}} title="delete" />  */}
+                              <DeleteFormModal handleDelete={handleDelete} itemId={{_id:role?._id}} isDeleteOpen={isDeleteOpen} loading={loading} />
+                              </td>
                             </tr>
                           ))}
                       </tbody>
