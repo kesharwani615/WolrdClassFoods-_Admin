@@ -49,6 +49,23 @@
   cursor: pointer;
 }
 
+textarea {
+  width: 100%;
+  /* Set initial height */
+  min-height: 150px; /* Adjust this value as needed */
+  /* Allow the textarea to expand vertically as needed */
+  resize: vertical;
+  /* Other styling */
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.sidebar_tab__name_toggle.active {
+  display: none;
+}
+
 @keyframes customEnterOverlayAnimation {
     0% {
       transform: scale(0);

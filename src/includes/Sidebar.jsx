@@ -34,7 +34,7 @@ const Sidebar = () => {
                 />
               </div> */}
               <div className="user_info">
-                <h6>World Class Gourmet Foods</h6>
+                <h6>WCGF</h6>
                 {/* <p>
                   <span className="online_animation"></span> Online
                 </p> */}
@@ -49,25 +49,31 @@ const Sidebar = () => {
               <Link to="/">
                 <FcCollect style={dashboardIconStyle} />
 
-                <span>Dashboard</span>
+                <span className="sidebar_tab__name_toggle">Dashboard</span>
               </Link>
             </li>
             <li>
               <Link to="/roles">
                 <FcNeutralTrading style={dashboardIconStyle} />
-                <span>Roles</span>
+                <span className="sidebar_tab__name_toggle">Roles</span>
+              </Link>
+            </li>
+            <li>
+              <Link to="/category">
+                <FcNeutralTrading style={dashboardIconStyle} />
+                <span className="sidebar_tab__name_toggle">Category</span>
               </Link>
             </li>
             <li>
               <Link to="/product">
                 <FcNeutralTrading style={dashboardIconStyle} />
-                <span>Products</span>
+                <span className="sidebar_tab__name_toggle">Products</span>
               </Link>
             </li>
             <li>
             <Link to="/">
                 <FcPicture style={dashboardIconStyle} />
-                <span>Tables</span>
+                <span className="sidebar_tab__name_toggle">Tables</span>
               </Link>
             </li>
           </ul>

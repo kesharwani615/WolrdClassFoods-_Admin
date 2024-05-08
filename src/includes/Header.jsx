@@ -13,8 +13,12 @@ const Header = () => {
   const { isNavigate } = useSelector((state) => state.auth);
 
   const toggleSidebar = () => {
-    const sidebar = document.getElementById( 'sidebar' );
+    const sidebar = document.getElementById('sidebar');
+    const sidebarTabName = document.querySelectorAll('.sidebar_tab__name_toggle');
     sidebar.classList.toggle('active');
+    for(let tabName of sidebarTabName){
+      tabName.classList.toggle('active');
+    }
   };
 
   

@@ -3,7 +3,7 @@ import React, { useEffect } from "react";
 import { Modal } from "react-responsive-modal";
 import { inputError } from "../formError/InputError";
 
-const AddFormModal = ({ inputName,formik, loading, isOpen = false }) => {
+const AddFormModal = ({ inputName,formik, loading,modalType, isOpen = false }) => {
   const [open, setOpen] = React.useState(false);
   
   useEffect(()=>{
@@ -13,6 +13,9 @@ const AddFormModal = ({ inputName,formik, loading, isOpen = false }) => {
         formik.resetForm();
       }
   },[isOpen])
+
+
+
 
 
   const printsAllInputFields = (inputName) => {
@@ -25,13 +28,12 @@ const AddFormModal = ({ inputName,formik, loading, isOpen = false }) => {
           inputType?.length &&
           (inputType).map((typevalue,index) => (
             <div className="form-group col-md-12" key={index}>
-              <label htmlFor="inputEmail4">{typevalue?.label}</label>
-              <input
-                type={typevalue?.type}
-                name={typevalue?.keyName}
-                className="form-control"
-                {...formik.getFieldProps(typevalue?.keyName)}
-              />
+              
+              {(typevalue?.type === "text-area") ? (<><p><label htmlFor="descriptionText">{typevalue?.label}</label></p><textarea id="descriptionText" cols="120" {...formik.getFieldProps(typevalue?.keyName)}></textarea></>)
+              : (typevalue?.type === "file") ? (<><label htmlFor="descriptionText">{typevalue?.label}</label><input type={typevalue?.type} name={typevalue?.keyName} className="form-control" onChange={(e) =>handleImageChange(e,typevalue?.keyName)} /> </>)
+              : <><label htmlFor="descriptionText">{typevalue?.label}</label><input  type={typevalue?.type} name={typevalue?.keyName} className="form-control" {...formik.getFieldProps(typevalue?.keyName)}
+              /> </>
+              }
               {inputError(formik, typevalue?.keyName)}
             </div>
           ))
@@ -43,36 +45,37 @@ const AddFormModal = ({ inputName,formik, loading, isOpen = false }) => {
           (inputType).map((typevalue, index) => (
             <div className="form-group col-md-6" key={index}>
               <label htmlFor="inputEmail4">{typevalue?.label}</label>
-              <input
-                type={typevalue?.type}
-                name={typevalue?.keyName}
-                className="form-control"
-                {...formik.getFieldProps(typevalue?.keyName)}
-              />
+              {(typevalue?.type === "file") ? <input type={typevalue?.type} name={typevalue?.keyName} className="form-control" onChange={(e) =>handleImageChange(e,typevalue?.keyName)} />
+              : <input type={typevalue?.type} name={typevalue?.keyName} className="form-control" {...formik.getFieldProps(typevalue?.keyName)} />
+              }
               {inputError(formik, typevalue?.keyName)}
             </div>
           ))
         );
 
-      default:
-        return (
-          inputType &&
-          inputType?.length &&
-          (inputType).map((typevalue, index) => (
-            <div className="form-group col-md-6" key={index}>
-              <label htmlFor="inputEmail4">{typevalue?.label}</label>
-              <input
-                type={inputType?.type}
-                name={inputType?.keyName}
-                className="form-control"
-                {...formik.getFieldProps(inputType?.keyName)}
-              />
-              {inputError(formik, inputType?.keyName)}
-            </div>
-          ))
-        );
+      // default:
+      //   return (
+      //     inputType &&
+      //     inputType?.length &&
+      //     (inputType).map((typevalue, index) => (
+      //       <div className="form-group col-md-6" key={index}>
+      //         <label htmlFor="inputEmail4">{typevalue?.label}</label>
+      //         <input
+      //           type={inputType?.type}
+      //           name={inputType?.keyName}
+      //           className="form-control"
+      //           {...formik.getFieldProps(inputType?.keyName)}
+      //         />
+      //         {inputError(formik, inputType?.keyName)}
+      //       </div>
+      //     ))
+      //   );
     }
    })
+  };
+
+  const handleImageChange = (event,keyName) => {
+    formik.setFieldValue(keyName, event.target.files[0]);
   };
 
   return (
@@ -99,7 +102,7 @@ const AddFormModal = ({ inputName,formik, loading, isOpen = false }) => {
       >
         <div className="card">
           <div className="card-body">
-            <h5 className="card-title">Add Role</h5>
+            <h5 className="card-title">Add {modalType}</h5>
             {/* <h6 className="card-subtitle mb-2 text-muted">Card subtitle</h6> */}
             <form onSubmit={formik.handleSubmit}>
               <div className="form-row">
