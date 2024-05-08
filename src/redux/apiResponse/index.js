@@ -87,6 +87,18 @@ const addCategoryApiResponse =  createAsyncThunk("/category/register/", async({f
 });
 
 
+const fetchContactApiResponse =  createAsyncThunk("/contact/get-all-contacts/", async({formData,toast})=>{
+    try{
+        const response=await api.fetchContact(formData);
+        toast.success(response.data.message,{position:"top-right"});
+        return {response:response?.data}
+    }catch(error){
+        toast.error(`${error?.response?.data?.statusCode?.message} ${error?.response?.data?.message}`,{position:"top-right"});
+        throw error
+    }
+});
+
+
 
 
 
@@ -97,5 +109,6 @@ export {
     addRoleApiResponse,
     updateRoleApiResponse,
     deleteRoleApiResponse,
-    addCategoryApiResponse
+    addCategoryApiResponse,
+    fetchContactApiResponse
 }

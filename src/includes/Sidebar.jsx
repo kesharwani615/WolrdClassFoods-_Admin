@@ -65,6 +65,12 @@ const Sidebar = () => {
               </Link>
             </li>
             <li>
+              <Link to="/contact">
+                <FcNeutralTrading style={dashboardIconStyle} />
+                <span className="sidebar_tab__name_toggle">Contact</span>
+              </Link>
+            </li>
+            <li>
               <Link to="/product">
                 <FcNeutralTrading style={dashboardIconStyle} />
                 <span className="sidebar_tab__name_toggle">Products</span>

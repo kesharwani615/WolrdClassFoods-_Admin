@@ -64,8 +64,8 @@ const Header = () => {
                       <Link className="dropdown-item" to="/profile">
                         My Profile
                       </Link>
-                      <p className="dropdown-item" onClick={logout}>
-                        <span onClick={logout}>Log Out</span> <AiOutlineLogout />
+                      <p className="dropdown-item logout_hover" style={{padding:"0.25rem 0rem", marginBottom:"0"}} onClick={logout}>
+                        <span onClick={logout}>Log Out <AiOutlineLogout /></span> 
                       </p>
                     </div>
                   </li>

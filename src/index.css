@@ -65,6 +65,22 @@ textarea {
 .sidebar_tab__name_toggle.active {
   display: none;
 }
+.logout_hover span{
+    color: #15283c !important;
+    padding: 4px 0px !important;
+    border-bottom: none !important;
+    line-height: normal !important;
+}
+
+.logout_hover:hover{
+  background-color: #15283c;
+  color: #ffff !important;
+  cursor: pointer;
+}
+.logout_hover span:hover{
+  background-color: #15283c;
+  color: #ffff !important;
+}
 
 @keyframes customEnterOverlayAnimation {
     0% {

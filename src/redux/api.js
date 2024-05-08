@@ -19,6 +19,14 @@ const getRole = (id) => API.get(`/role/get-role/${_id}`);
 const addCategory = (formData) => API.post("/category/register",formData);
 
 
+//contact
+const fetchContact=(search)=>{
+  let url = `/contact/get-all-contacts`;
+  if(search) url+=`?search=${search}`
+  return API.get(url);
+}
+
+
 export {
   API,
     login,
@@ -28,7 +36,8 @@ export {
     updateRole,
     deleteRole,
     getRole,
-    addCategory
+    addCategory,
+    fetchContact
 }
 
 

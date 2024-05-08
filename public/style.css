@@ -754,7 +754,7 @@ a:focus {
 .icon_info ul.user_profile_dd li div a {
     font-size: 15px;
     color: #15283c;
-    padding: 4px 15px;
+    padding: 4px 0px;
     border-bottom: none;
     line-height: normal;
 }
@@ -785,7 +785,7 @@ a:focus {
     right: 0;
     z-index: 1000;
     float: left;
-    padding: 10px 6px;
+    padding: 0 6px;
     margin: 0;
     font-size: 15px;
     color: #212529;
@@ -913,7 +913,7 @@ a[data-toggle="collapse"] {
 
 #content {
     width: 100%;
-    min-height: 100vh;
+    min-height: 85vh;
     transition: ease all 0.3s;
     position: relative;
     padding: 60px 25px 25px 305px;
@@ -3261,7 +3261,7 @@ table.projects tr td:first-child {
 }
 
 .full_height {
-    height: 100vh;
+    height: 90vh;
 }
 
 .login_section {
