@@ -3,18 +3,15 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchContactApiResponse } from "../../redux/apiResponse";
 import { toast } from "react-toastify";
 import moment from "moment";
+import { CirclesWithBar } from "react-loader-spinner";
+import TableLoading from "../../includes/Loader/TableLoading";
 
 
 const Contact = () => {
   const dispatch = useDispatch();
 
-
   const { contactList,loading } = useSelector((state) => state.contactUs);
-  console.log('contact',contactList);
   
-
-
-
   useEffect(() => {
     dispatch(fetchContactApiResponse({ toast }));
   }, []);
@@ -57,7 +54,7 @@ const Contact = () => {
                         </tr>
                       </thead>
                       <tbody>
-                        {contactList &&
+                        {!loading &&(contactList &&
                           contactList?.length &&
                           contactList?.map((contact, index) => (
                             <tr key={index}>
@@ -69,11 +66,11 @@ const Contact = () => {
                               <td>{contact?.conSubject}</td>
                               <td>{contact?.conMessage}</td>
                               <td>{moment(contact?.createdAt).format("ll")}</td>
-                              
                             </tr>
-                          ))}
+                          )))}
                       </tbody>
                     </table>
+                    {loading && <TableLoading />}
                   </div>
                 </div>
               </div>

@@ -63,7 +63,7 @@ import { rolesApiResponse,addRoleApiResponse, updateRoleApiResponse, deleteRoleA
            .addCase(updateRoleApiResponse.pending, (state, action) => {
                 state.message = "";
                 state.error = "";
-                state.loading = true;
+                state.loading = !true;
                 state.isUpdateModalOpen = true;
             })
             .addCase(updateRoleApiResponse.fulfilled, (state, action) => {
@@ -94,7 +94,7 @@ import { rolesApiResponse,addRoleApiResponse, updateRoleApiResponse, deleteRoleA
            .addCase(deleteRoleApiResponse.pending, (state, action) => {
                 state.message = "";
                 state.error = "";
-                state.loading = true;
+                state.loading = !true;
                 state.isDeleteModalOpen = true;
             })
             .addCase(deleteRoleApiResponse.fulfilled, (state, action) => {

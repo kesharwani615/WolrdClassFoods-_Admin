@@ -9,6 +9,7 @@ import { RiDeleteBin6Line } from "react-icons/ri";
 import AddFormModal from "../../includes/formModal/AddFormModal";
 import UpdateFormModal from "../../includes/formModal/UpdateFormModal";
 import DeleteFormModal from "../../includes/formModal/DeleteFormModal";
+import TableLoading from "../../includes/Loader/TableLoading";
 
 const Roles = () => {
   const dispatch = useDispatch();
@@ -121,7 +122,7 @@ const updateStatus = (formData) => {
                         </tr>
                       </thead>
                       <tbody>
-                        {roles &&
+                        {!loading &&(roles &&
                           roles?.length &&
                           roles?.map((role, index) => (
                             <tr key={index}>
@@ -134,9 +135,10 @@ const updateStatus = (formData) => {
                               <DeleteFormModal handleDelete={handleDelete} itemId={{_id:role?._id}} isDeleteOpen={isDeleteOpen} loading={loading} />
                               </td>
                             </tr>
-                          ))}
+                          )))}
                       </tbody>
                     </table>
+                    {loading && <TableLoading />}
                   </div>
                 </div>
               </div>
