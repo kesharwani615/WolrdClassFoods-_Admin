@@ -11,9 +11,10 @@ const Contact = () => {
   const dispatch = useDispatch();
 
   const { contactList,loading } = useSelector((state) => state.contactUs);
+  const search = "";
   
   useEffect(() => {
-    dispatch(fetchContactApiResponse({ toast }));
+    dispatch(fetchContactApiResponse({search, toast }));
   }, []);
 
 

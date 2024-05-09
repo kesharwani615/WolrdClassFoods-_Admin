@@ -1,10 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { addCategoryApiResponse } from '../apiResponse';
+import { addCategoryApiResponse,fetchCategoryApiResponse,updateCategoryApiResponse } from '../apiResponse';
 
-  export const roleSlice = createSlice({
-    name:"role",
+  export const categorySlice = createSlice({
+    name:"category",
     initialState:{
-        category:[],
+        categoriesList:[],
         error:"",
         loading:false,
         isModalOpen:false,
@@ -23,7 +23,7 @@ import { addCategoryApiResponse } from '../apiResponse';
         })
         .addCase(addCategoryApiResponse.fulfilled, (state, action) => {
             if(!!action.payload?.response?.success){
-                state.category = [...state.category,action.payload?.response?.data];
+                state.categoriesList = [...state.categoriesList,action.payload?.response?.data];
                 state.message = action.payload?.response?.message;
                 state.error = "";
                 state.loading = false;
@@ -39,65 +39,61 @@ import { addCategoryApiResponse } from '../apiResponse';
             state.loading = false;
             state.isModalOpen = true;
         })
-
-
-
-
-
-
-        //    .addCase(rolesApiResponse.pending, (state, action) => {
-        //         state.message = "";
-        //         state.error = "";
-        //         state.loading = true;
-        //         state.isModalOpen = false;
-        //     })
-        //     .addCase(rolesApiResponse.fulfilled, (state, action) => {
-        //         if(action.payload?.response?.statusCode === 200){
-        //             state.roles = action.payload?.response?.data;
-        //             state.message = action.payload?.response?.message;
-        //             state.error = "";
-        //             state.loading = false;
-        //         } else {
-        //             state.loading = false;
-        //         }
-        //     })
-        //     .addCase(rolesApiResponse.rejected, (state, action) => {
-        //         state.message = "";
-        //         state.error = action.error.message;
-        //         state.loading = false;
-        //     })
+           .addCase(fetchCategoryApiResponse.pending, (state, action) => {
+                state.message = "";
+                state.error = "";
+                state.loading = true;
+                state.isModalOpen = false;
+            })
+            .addCase(fetchCategoryApiResponse.fulfilled, (state, action) => {
+                if(!!action.payload?.response?.success){
+                    state.categoriesList = action.payload?.response?.data;
+                    state.message = action.payload?.response?.message;
+                    state.error = "";
+                    state.loading = false;
+                } else {
+                    state.loading = false;
+                }
+            })
+            .addCase(fetchCategoryApiResponse.rejected, (state, action) => {
+                state.message = "";
+                state.error = action.error.message;
+                state.loading = false;
+            })
           
-        //    .addCase(updateRoleApiResponse.pending, (state, action) => {
-        //         state.message = "";
-        //         state.error = "";
-        //         state.loading = true;
-        //         state.isUpdateModalOpen = true;
-        //     })
-        //     .addCase(updateRoleApiResponse.fulfilled, (state, action) => {
-        //         if(!!action.payload?.response?.success){
-        //             state.roles = state.roles.map((x)=> {
-        //                  if(x._id === action.payload?.response?.data._id ){
-        //                     x.roleName = action?.payload?.response?.data?.roleName
-        //                     x.isActive = action?.payload?.response?.data?.isActive
-        //                     x.createdAt = action?.payload?.response?.data?.createdAt
-        //                  }
-        //                  return x;
-        //             })
-        //             state.message = action.payload?.response?.message;
-        //             state.error = "";
-        //             state.loading = false;
-        //             state.isUpdateModalOpen = false;
-        //         } else {
-        //             state.loading = false;
-        //             state.isUpdateModalOpen = true;
-        //         }
-        //     })
-        //     .addCase(updateRoleApiResponse.rejected, (state, action) => {
-        //         state.message = "";
-        //         state.error = action.error.message;
-        //         state.loading = false;
-        //         state.isUpdateModalOpen = true;
-        //     })
+           .addCase(updateCategoryApiResponse.pending, (state, action) => {
+                state.message = "";
+                state.error = "";
+                state.loading = true;
+                state.isUpdateModalOpen = true;
+            })
+            .addCase(updateCategoryApiResponse.fulfilled, (state, action) => {
+                if(!!action.payload?.response?.success){
+                    state.categoriesList = state.categoriesList.map((x)=> {
+                         if(x._id === action.payload?.response?.data._id ){
+                            x.categoryName = action?.payload?.response?.data?.categoryName
+                            x.categoryDescription = action?.payload?.response?.data?.categoryDescription
+                            x.categoryImage = action?.payload?.response?.data?.categoryImage
+                            x.isActive = action?.payload?.response?.data?.isActive
+                            x.createdAt = action?.payload?.response?.data?.createdAt
+                         }
+                         return x;
+                    })
+                    state.message = action.payload?.response?.message;
+                    state.error = "";
+                    state.loading = false;
+                    state.isUpdateModalOpen = false;
+                } else {
+                    state.loading = false;
+                    state.isUpdateModalOpen = true;
+                }
+            })
+            .addCase(updateCategoryApiResponse.rejected, (state, action) => {
+                state.message = "";
+                state.error = action.error.message;
+                state.loading = false;
+                state.isUpdateModalOpen = true;
+            })
         //    .addCase(deleteRoleApiResponse.pending, (state, action) => {
         //         state.message = "";
         //         state.error = "";
@@ -129,4 +125,4 @@ import { addCategoryApiResponse } from '../apiResponse';
   })
   
   
-  export default roleSlice.reducer
+  export default categorySlice.reducer

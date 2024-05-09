@@ -6,6 +6,7 @@ import { useSelector } from "react-redux";
 import { useState } from "react";
 import { API } from "./redux/api";
 import {  ToastContainer, toast } from "react-toastify";
+import { jwtDecode } from "jwt-decode";
 
 
 
@@ -32,11 +33,18 @@ function App() {
 
   
   if(world_class_user?.accessToken && world_class_user?.refreshToken){
+    const decodedToken = jwtDecode(world_class_user?.accessToken);
+    setTimeout(() => {
+      localStorage.removeItem('world_class_user');
+      setIsAuthenticated(false);
+    }, Number(decodedToken?.exp));
     setIsAuthenticated(true);
   } else {
     setIsAuthenticated(false);
   }
   });
+
+
 
   return(
     <>

@@ -1,4 +1,5 @@
 import axios from "axios";
+import { createFormData } from "../utils";
 
 const API = axios.create({
   baseURL: `${import.meta.env.VITE_BASE_URL}/api/v1`
@@ -17,6 +18,16 @@ const getRole = (id) => API.get(`/role/get-role/${_id}`);
 
 //Product Category
 const addCategory = (formData) => API.post("/category/register",formData);
+const fetchAllCategory = (search) => {
+  let url = `/category/get-categories`;
+  if(search) url+=`?search=${search}`
+  return API.get(url);
+};
+const updateCategory = ({_id,...restFormData}) => {
+  const formData = createFormData(restFormData);
+  return API.patch(`/category/update/${_id}`,formData);
+}
+
 
 
 //contact
@@ -37,6 +48,8 @@ export {
     deleteRole,
     getRole,
     addCategory,
+    fetchAllCategory,
+    updateCategory,
     fetchContact
 }
 

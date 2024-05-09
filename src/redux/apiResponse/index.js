@@ -86,10 +86,33 @@ const addCategoryApiResponse =  createAsyncThunk("/category/register/", async({f
     }
 });
 
-
-const fetchContactApiResponse =  createAsyncThunk("/contact/get-all-contacts/", async({formData,toast})=>{
+const fetchCategoryApiResponse =  createAsyncThunk("/category/get-categories/", async({search,toast})=>{
     try{
-        const response=await api.fetchContact(formData);
+        const response=await api.fetchAllCategory(search);
+        toast.success(response.data.message,{position:"top-right"});
+        return {response:response?.data}
+    }catch(error){
+        toast.error(`${error?.response?.data?.statusCode?.message} ${error?.response?.data?.message}`,{position:"top-right"});
+        throw error
+    }
+});
+
+const updateCategoryApiResponse =  createAsyncThunk("/category/update/", async({formData,toast})=>{
+    try{
+        const response= await api.updateCategory(formData);
+        toast.success(response.data.message,{position:"top-right"});
+        return {response:response?.data}
+    }catch(error){
+        console.log('...............rr',`${error?.response?.data?.statusCode?.message} ${error?.response?.data?.message}`);
+        toast.error(`${error?.response?.data?.statusCode?.message} ${error?.response?.data?.message}`,{position:"top-right"});
+        throw error
+    }
+});
+
+
+const fetchContactApiResponse =  createAsyncThunk("/contact/get-all-contacts/", async({search,toast})=>{
+    try{
+        const response=await api.fetchContact(search);
         toast.success(response.data.message,{position:"top-right"});
         return {response:response?.data}
     }catch(error){
@@ -110,5 +133,7 @@ export {
     updateRoleApiResponse,
     deleteRoleApiResponse,
     addCategoryApiResponse,
+    fetchCategoryApiResponse,
+    updateCategoryApiResponse,
     fetchContactApiResponse
 }

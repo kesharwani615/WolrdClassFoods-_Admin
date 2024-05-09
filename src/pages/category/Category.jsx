@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addRoleApiResponse, rolesApiResponse, updateRoleApiResponse, deleteRoleApiResponse, addCategoryApiResponse } from "../../redux/apiResponse";
+import { updateRoleApiResponse, deleteRoleApiResponse, addCategoryApiResponse, fetchCategoryApiResponse, updateCategoryApiResponse } from "../../redux/apiResponse";
 import { toast } from "react-toastify";
 import moment from "moment";
 import { useFormik } from "formik";
@@ -16,8 +16,9 @@ const Category = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isUpdateOpen, setIsUpdateOpen] = useState(false);
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
+  const baseURL = `${import.meta.env.VITE_BASE_URL}/`;
 
-  const { roles,loading,isModalOpen,isUpdateModalOpen, isDeleteModalOpen } = useSelector((state) => state.role);
+  const { categoriesList,loading,isModalOpen,isUpdateModalOpen, isDeleteModalOpen } = useSelector((state) => state.categories);
   
 
   useEffect(() => {
@@ -33,7 +34,7 @@ const Category = () => {
   }, [isDeleteModalOpen]);
 
   useEffect(() => {
-    dispatch(rolesApiResponse({ toast }));
+    dispatch(fetchCategoryApiResponse({ toast }));
   }, []);
 
   const inputName = [
@@ -65,22 +66,26 @@ const Category = () => {
   const updateFormik = useFormik({
     initialValues: {
       _id:"",
-      roleName: ""
-    },
-    validationSchema: Yup.object({
-      roleName: Yup.string().max(15, "Must be 15 characters or less").required("Required")
-    }),
+      categoryName: "",
+      categoryImage:"",
+      categoryDescription:""
+  },
+  validationSchema: Yup.object({
+      categoryName: Yup.string().max(15, "Must be 15 characters or less").required("Required"),
+      categoryImage: Yup.string().optional(),
+      categoryDescription: Yup.string().max(1000, "Must be 1000 characters or less").required("Required")
+  }),
     onSubmit: (formData) => {
-      console.log('update submit',formData);
+      console.log('update cc submit',formData);
       dispatch(
-        updateRoleApiResponse({ formData, toast})
+        updateCategoryApiResponse({ formData, toast})
       );
     },
   });
 
 
-  const onPatchValueHandler = (role) => {
-    updateFormik.setValues({_id:role?._id,roleName:role?.roleName})
+  const onPatchValueHandler = (category) => {
+    updateFormik.setValues({_id:category?._id,categoryName:category?.categoryName,categoryDescription:category?.categoryDescription})
   };
 
 
@@ -120,25 +125,27 @@ const updateStatus = (formData) => {
                     <table className="table">
                       <thead>
                         <tr>
-                          <th>SR. NO</th>
-                          <th>Role</th>
+                          <th>SR.NO</th>
+                          <th> Category Name</th>
+                          <th>Description</th>
+                          <th>Created</th>
                           <th>Status</th>
-                          <th>Created At</th>
                           <th>Actions</th>
                         </tr>
                       </thead>
                       <tbody>
-                        {!loading &&(roles &&
-                          roles?.length &&
-                          roles?.map((role, index) => (
+                        {!loading &&(categoriesList &&
+                          categoriesList?.length &&
+                          categoriesList?.map((category, index) => (
                             <tr key={index}>
                               <td>{index + 1}</td>
-                              <td>{role?.roleName}</td>
-                              <td>{role?.isActive ? <span className="active__Status" onClick={()=>updateStatus({_id:role?._id,isActive:false})}>Active</span> : <span className="inactive__Status" onClick={()=>updateStatus({_id:role?._id,isActive:true})} >Inactive</span>}</td>
-                              <td>{moment(role?.createdAt).format("ll")}</td>
+                              <td> <tr> <td><img src={`${import.meta.env.VITE_BASE_URL}/${category.categoryImage}`}  width={50} height={50} /></td> <td>{category?.categoryName}</td></tr> </td>
+                              <td>{category?.categoryDescription}</td>
+                              <td>{moment(category?.createdAt).format("ll")}</td>
+                              <td>{category?.isActive ? <span className="active__Status" onClick={()=>updateStatus({_id:category?._id,isActive:false})}>Active</span> : <span className="inactive__Status" onClick={()=>updateStatus({_id:category?._id,isActive:true})} >Inactive</span>}</td>
                               <td>
-                              <UpdateFormModal inputName={inputName} formik={updateFormik} isOpen={isUpdateOpen} loading={loading} currentValue={role} onPatchValueHandler={(value)=> onPatchValueHandler(value)} />
-                              <DeleteFormModal handleDelete={handleDelete} itemId={{_id:role?._id}} isDeleteOpen={isDeleteOpen} loading={loading} />
+                              <UpdateFormModal inputName={inputName} formik={updateFormik} isOpen={isUpdateOpen} loading={loading} currentValue={{...category,image:baseURL + "" + category?.categoryImage}} onPatchValueHandler={(value)=> onPatchValueHandler(value)} modalType="Category" />
+                              <DeleteFormModal handleDelete={handleDelete} itemId={{_id:category?._id}} isDeleteOpen={isDeleteOpen} loading={loading} />
                               </td>
                             </tr>
                           )))}
