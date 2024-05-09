@@ -103,7 +103,17 @@ const updateCategoryApiResponse =  createAsyncThunk("/category/update/", async({
         toast.success(response.data.message,{position:"top-right"});
         return {response:response?.data}
     }catch(error){
-        console.log('...............rr',`${error?.response?.data?.statusCode?.message} ${error?.response?.data?.message}`);
+        toast.error(`${error?.response?.data?.statusCode?.message} ${error?.response?.data?.message}`,{position:"top-right"});
+        throw error
+    }
+});
+
+const deleteCategoryApiResponse =  createAsyncThunk("/category/delete/id/", async({formData,toast})=>{
+    try{
+        const response=await api.deleteCategory(formData);
+        toast.success(response.data.message,{position:"top-right"});
+        return {response:response?.data}
+    }catch(error){
         toast.error(`${error?.response?.data?.statusCode?.message} ${error?.response?.data?.message}`,{position:"top-right"});
         throw error
     }
@@ -135,5 +145,6 @@ export {
     addCategoryApiResponse,
     fetchCategoryApiResponse,
     updateCategoryApiResponse,
+    deleteCategoryApiResponse,
     fetchContactApiResponse
 }

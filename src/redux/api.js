@@ -26,7 +26,8 @@ const fetchAllCategory = (search) => {
 const updateCategory = ({_id,...restFormData}) => {
   const formData = createFormData(restFormData);
   return API.patch(`/category/update/${_id}`,formData);
-}
+};
+const deleteCategory = (rowData) => API.delete(`/category/delete/${rowData?._id}`,rowData);
 
 
 
@@ -50,6 +51,7 @@ export {
     addCategory,
     fetchAllCategory,
     updateCategory,
+    deleteCategory,
     fetchContact
 }
 

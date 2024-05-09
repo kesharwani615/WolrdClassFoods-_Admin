@@ -10,7 +10,8 @@ import { rolesApiResponse,addRoleApiResponse, updateRoleApiResponse, deleteRoleA
         isModalOpen:false,
         isUpdateModalOpen:false,
         isDeleteModalOpen:false,
-        isNavigate:false
+        isNavigate:false,
+        saveLoading:false
     },
     reducers: {},
     extraReducers: (builder) => {
@@ -65,11 +66,12 @@ import { rolesApiResponse,addRoleApiResponse, updateRoleApiResponse, deleteRoleA
                 state.error = "";
                 state.loading = !true;
                 state.isUpdateModalOpen = true;
+                state.saveLoading = true;
             })
             .addCase(updateRoleApiResponse.fulfilled, (state, action) => {
                 if(!!action.payload?.response?.success){
                     state.roles = state.roles.map((x)=> {
-                         if(x._id === action.payload?.response?.data._id ){
+                         if(x._id === action.payload?.response?.data?._id ){
                             x.roleName = action?.payload?.response?.data?.roleName
                             x.isActive = action?.payload?.response?.data?.isActive
                             x.createdAt = action?.payload?.response?.data?.createdAt
@@ -84,22 +86,25 @@ import { rolesApiResponse,addRoleApiResponse, updateRoleApiResponse, deleteRoleA
                     state.loading = false;
                     state.isUpdateModalOpen = true;
                 }
+                state.saveLoading = false;
             })
             .addCase(updateRoleApiResponse.rejected, (state, action) => {
                 state.message = "";
                 state.error = action.error.message;
                 state.loading = false;
                 state.isUpdateModalOpen = true;
+                state.saveLoading = false;
             })
            .addCase(deleteRoleApiResponse.pending, (state, action) => {
                 state.message = "";
                 state.error = "";
                 state.loading = !true;
                 state.isDeleteModalOpen = true;
+                state.saveLoading = true;
             })
             .addCase(deleteRoleApiResponse.fulfilled, (state, action) => {
                 if(!!action.payload?.response?.success){
-                    state.roles = state.roles.filter((x)=> String(x._id) !== String(action.payload?.response?.data._id))
+                    state.roles = state.roles.filter((x)=> String(x._id) !== String(action.payload?.response?.data?._id))
                     state.message = action.payload?.response?.message;
                     state.error = "";
                     state.loading = false;
@@ -108,12 +113,14 @@ import { rolesApiResponse,addRoleApiResponse, updateRoleApiResponse, deleteRoleA
                     state.loading = false;
                     state.isDeleteModalOpen = true;
                 }
+                state.saveLoading = false
             })
             .addCase(deleteRoleApiResponse.rejected, (state, action) => {
                 state.message = "";
                 state.error = action.error.message;
                 state.loading = false;
                 state.isDeleteModalOpen = true;
+                state.saveLoading = false
             })
             
         

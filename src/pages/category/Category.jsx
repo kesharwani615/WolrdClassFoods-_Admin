@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { updateRoleApiResponse, deleteRoleApiResponse, addCategoryApiResponse, fetchCategoryApiResponse, updateCategoryApiResponse } from "../../redux/apiResponse";
+import { updateRoleApiResponse, deleteRoleApiResponse, addCategoryApiResponse, fetchCategoryApiResponse, updateCategoryApiResponse, deleteCategoryApiResponse } from "../../redux/apiResponse";
 import { toast } from "react-toastify";
 import moment from "moment";
 import { useFormik } from "formik";
@@ -10,6 +10,7 @@ import UpdateFormModal from "../../includes/formModal/UpdateFormModal";
 import DeleteFormModal from "../../includes/formModal/DeleteFormModal";
 import { createFormData } from "../../utils";
 import TableLoading from "../../includes/Loader/TableLoading";
+import ImagePopup from "../../includes/imagePopup/ImagePopup";
 
 const Category = () => {
   const dispatch = useDispatch();
@@ -18,7 +19,7 @@ const Category = () => {
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
   const baseURL = `${import.meta.env.VITE_BASE_URL}/`;
 
-  const { categoriesList,loading,isModalOpen,isUpdateModalOpen, isDeleteModalOpen } = useSelector((state) => state.categories);
+  const { categoriesList,loading,isModalOpen,isUpdateModalOpen, isDeleteModalOpen, saveLoading } = useSelector((state) => state.categories);
   
 
   useEffect(() => {
@@ -90,11 +91,11 @@ const Category = () => {
 
 
 const handleDelete = (formData) => {
-  dispatch(deleteRoleApiResponse({formData,toast}))
+  dispatch(deleteCategoryApiResponse({formData,toast}))
 };
 
 const updateStatus = (formData) => {
-  dispatch(updateRoleApiResponse({ formData, toast}))
+  dispatch(updateCategoryApiResponse({ formData, toast}))
 };
  
 
@@ -139,13 +140,18 @@ const updateStatus = (formData) => {
                           categoriesList?.map((category, index) => (
                             <tr key={index}>
                               <td>{index + 1}</td>
-                              <td> <tr> <td><img src={`${import.meta.env.VITE_BASE_URL}/${category.categoryImage}`}  width={50} height={50} /></td> <td>{category?.categoryName}</td></tr> </td>
+                              <td>
+                                  <tr>
+                                    <td><ImagePopup images={[{src:`${import.meta.env.VITE_BASE_URL}/${category.categoryImage}`,alt:category?.categoryName}]} /></td>
+                                    <td>{category?.categoryName}</td>
+                                  </tr>
+                              </td>
                               <td>{category?.categoryDescription}</td>
                               <td>{moment(category?.createdAt).format("ll")}</td>
                               <td>{category?.isActive ? <span className="active__Status" onClick={()=>updateStatus({_id:category?._id,isActive:false})}>Active</span> : <span className="inactive__Status" onClick={()=>updateStatus({_id:category?._id,isActive:true})} >Inactive</span>}</td>
                               <td>
-                              <UpdateFormModal inputName={inputName} formik={updateFormik} isOpen={isUpdateOpen} loading={loading} currentValue={{...category,image:baseURL + "" + category?.categoryImage}} onPatchValueHandler={(value)=> onPatchValueHandler(value)} modalType="Category" />
-                              <DeleteFormModal handleDelete={handleDelete} itemId={{_id:category?._id}} isDeleteOpen={isDeleteOpen} loading={loading} />
+                              <UpdateFormModal inputName={inputName} formik={updateFormik} isOpen={isUpdateOpen} loading={saveLoading} currentValue={{...category,image:baseURL + "" + category?.categoryImage}} onPatchValueHandler={(value)=> onPatchValueHandler(value)} modalType="Category" />
+                              <DeleteFormModal handleDelete={handleDelete} itemId={{_id:category?._id}} isDeleteOpen={isDeleteOpen} loading={saveLoading} />
                               </td>
                             </tr>
                           )))}

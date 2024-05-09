@@ -17,7 +17,7 @@ const Roles = () => {
   const [isUpdateOpen, setIsUpdateOpen] = useState(false);
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
 
-  const { roles,loading,isModalOpen,isUpdateModalOpen, isDeleteModalOpen } = useSelector((state) => state.role);
+  const { roles,loading,isModalOpen,isUpdateModalOpen, isDeleteModalOpen, saveLoading } = useSelector((state) => state.role);
   
 
   useEffect(() => {
@@ -131,8 +131,8 @@ const updateStatus = (formData) => {
                               <td>{role?.isActive ? <span className="active__Status" onClick={()=>updateStatus({_id:role?._id,isActive:false})}>Active</span> : <span className="inactive__Status" onClick={()=>updateStatus({_id:role?._id,isActive:true})} >Inactive</span>}</td>
                               <td>{moment(role?.createdAt).format("ll")}</td>
                               <td>
-                              <UpdateFormModal inputName={inputName} formik={updateFormik} isOpen={isUpdateOpen} loading={loading} currentValue={role} onPatchValueHandler={(value)=> onPatchValueHandler(value)} modalType="Role" />
-                              <DeleteFormModal handleDelete={handleDelete} itemId={{_id:role?._id}} isDeleteOpen={isDeleteOpen} loading={loading} />
+                              <UpdateFormModal inputName={inputName} formik={updateFormik} isOpen={isUpdateOpen} loading={saveLoading} currentValue={role} onPatchValueHandler={(value)=> onPatchValueHandler(value)} modalType="Role" />
+                              <DeleteFormModal handleDelete={handleDelete} itemId={{_id:role?._id}} isDeleteOpen={isDeleteOpen} loading={saveLoading} />
                               </td>
                             </tr>
                           )))}

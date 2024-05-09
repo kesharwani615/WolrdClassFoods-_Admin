@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { addCategoryApiResponse,fetchCategoryApiResponse,updateCategoryApiResponse } from '../apiResponse';
+import { addCategoryApiResponse,fetchCategoryApiResponse,updateCategoryApiResponse, deleteCategoryApiResponse } from '../apiResponse';
 
   export const categorySlice = createSlice({
     name:"category",
@@ -10,7 +10,8 @@ import { addCategoryApiResponse,fetchCategoryApiResponse,updateCategoryApiRespon
         isModalOpen:false,
         isUpdateModalOpen:false,
         isDeleteModalOpen:false,
-        isNavigate:false
+        isNavigate:false,
+        saveLoading:false
     },
     reducers: {},
     extraReducers: (builder) => {
@@ -64,13 +65,14 @@ import { addCategoryApiResponse,fetchCategoryApiResponse,updateCategoryApiRespon
            .addCase(updateCategoryApiResponse.pending, (state, action) => {
                 state.message = "";
                 state.error = "";
-                state.loading = true;
+                state.loading = !true;
                 state.isUpdateModalOpen = true;
+                state.saveLoading = true;
             })
             .addCase(updateCategoryApiResponse.fulfilled, (state, action) => {
                 if(!!action.payload?.response?.success){
                     state.categoriesList = state.categoriesList.map((x)=> {
-                         if(x._id === action.payload?.response?.data._id ){
+                         if(x._id === action.payload?.response?.data?._id ){
                             x.categoryName = action?.payload?.response?.data?.categoryName
                             x.categoryDescription = action?.payload?.response?.data?.categoryDescription
                             x.categoryImage = action?.payload?.response?.data?.categoryImage
@@ -87,37 +89,42 @@ import { addCategoryApiResponse,fetchCategoryApiResponse,updateCategoryApiRespon
                     state.loading = false;
                     state.isUpdateModalOpen = true;
                 }
+                state.saveLoading = false;
             })
             .addCase(updateCategoryApiResponse.rejected, (state, action) => {
                 state.message = "";
                 state.error = action.error.message;
                 state.loading = false;
                 state.isUpdateModalOpen = true;
+                state.saveLoading = false;
             })
-        //    .addCase(deleteRoleApiResponse.pending, (state, action) => {
-        //         state.message = "";
-        //         state.error = "";
-        //         state.loading = true;
-        //         state.isDeleteModalOpen = true;
-        //     })
-        //     .addCase(deleteRoleApiResponse.fulfilled, (state, action) => {
-        //         if(!!action.payload?.response?.success){
-        //             state.roles = state.roles.filter((x)=> String(x._id) !== String(action.payload?.response?.data._id))
-        //             state.message = action.payload?.response?.message;
-        //             state.error = "";
-        //             state.loading = false;
-        //             state.isDeleteModalOpen = false;
-        //         } else {
-        //             state.loading = false;
-        //             state.isDeleteModalOpen = true;
-        //         }
-        //     })
-        //     .addCase(deleteRoleApiResponse.rejected, (state, action) => {
-        //         state.message = "";
-        //         state.error = action.error.message;
-        //         state.loading = false;
-        //         state.isDeleteModalOpen = true;
-        //     })
+           .addCase(deleteCategoryApiResponse.pending, (state, action) => {
+                state.message = "";
+                state.error = "";
+                state.loading = !true;
+                state.isDeleteModalOpen = true;
+                state.saveLoading = true;
+            })
+            .addCase(deleteCategoryApiResponse.fulfilled, (state, action) => {
+                if(!!action.payload?.response?.success){
+                    state.categoriesList = state.categoriesList.filter((x)=> String(x._id) !== String(action.payload?.response?.data?._id))
+                    state.message = action.payload?.response?.message;
+                    state.error = "";
+                    state.loading = false;
+                    state.isDeleteModalOpen = false;
+                } else {
+                    state.loading = false;
+                    state.isDeleteModalOpen = true;
+                }
+                state.saveLoading = false;
+            })
+            .addCase(deleteCategoryApiResponse.rejected, (state, action) => {
+                state.message = "";
+                state.error = action.error.message;
+                state.loading = false;
+                state.isDeleteModalOpen = true;
+                state.saveLoading = false;
+            })
             
         
           
