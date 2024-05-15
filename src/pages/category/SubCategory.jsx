@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { updateRoleApiResponse, deleteRoleApiResponse, addCategoryApiResponse, fetchCategoryApiResponse, updateCategoryApiResponse, deleteCategoryApiResponse, fetchSubCategoryApiResponse,addSubCategoryApiResponse,updateSubCategoryApiResponse,deleteSubCategoryApiResponse } from "../../redux/apiResponse";
+import { fetchCategoryApiResponse, fetchSubCategoryApiResponse,addSubCategoryApiResponse,updateSubCategoryApiResponse,deleteSubCategoryApiResponse } from "../../redux/apiResponse";
 import { toast } from "react-toastify";
 import moment from "moment";
 import { useFormik } from "formik";
@@ -11,6 +11,8 @@ import DeleteFormModal from "../../includes/formModal/DeleteFormModal";
 import { createFormData } from "../../utils";
 import TableLoading from "../../includes/Loader/TableLoading";
 import ImagePopup from "../../includes/imagePopup/ImagePopup";
+import { Link } from "react-router-dom";
+import { MdOutlinePreview } from "react-icons/md";
 
 const SubCategory = () => {
   const dispatch = useDispatch();
@@ -161,6 +163,7 @@ const updateStatus = (formData) => {
                               <td>{moment(category?.createdAt).format("ll")}</td>
                               <td>{category?.isActive ? <span className="active__Status" onClick={()=>updateStatus({_id:category?._id,isActive:false})}>Active</span> : <span className="inactive__Status" onClick={()=>updateStatus({_id:category?._id,isActive:true})} >Inactive</span>}</td>
                               <td>
+                              <Link to={'/sub-category/' + category?._id} className="view_button" title="view sub category details">Viwe </Link>
                               <UpdateFormModal inputName={inputName} formik={{formik:updateFormik,list:categoriesList}} isOpen={isUpdateOpen} loading={saveLoading} currentValue={{...category,image:baseURL + "" + category?.subCategoryImage}} onPatchValueHandler={(value)=> onPatchValueHandler(value)} modalType="Sub Category" />
                               <DeleteFormModal handleDelete={handleDelete} itemId={{_id:category?._id}} isDeleteOpen={isDeleteOpen} loading={saveLoading} />
                               </td>

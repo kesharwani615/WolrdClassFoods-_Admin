@@ -6,6 +6,7 @@ import Roles from "../pages/role/Roles";
 import Category from "../pages/category/Category";
 import Contact from "../pages/contact/Contact";
 import SubCategory from "../pages/category/SubCategory";
+import SubCategoryViewPage from "../pages/category/SubCategoryViewPage";
 
 
 export const routes = (isAuthenticated) => {
@@ -15,12 +16,13 @@ export const routes = (isAuthenticated) => {
       element: <Layout isAuthenticated={isAuthenticated}/>,
       children: [
         { path: '', element: <Dashboard /> },
-        { path: '/roles', element: <Roles /> },
-        { path: '/category', element: <Category /> },
-        { path: '/sub-category', element: <SubCategory /> },
-        { path: '/contact', element: <Contact /> },
-        { path: '/product', element: <Product /> },
-        { path: '/profile', element: <Profile /> }
+        { path: 'roles', element: <Roles /> },
+        { path: 'category', element: <Category /> },
+        { path: 'sub-category', element: <SubCategory /> },
+        { path: 'sub-category/:id', element: <SubCategoryViewPage /> },
+        { path: 'contact', element: <Contact /> },
+        { path: 'product', element: <Product /> },
+        { path: 'profile', element: <Profile /> }
       ],
     },
     {

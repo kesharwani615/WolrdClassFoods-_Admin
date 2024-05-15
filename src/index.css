@@ -94,6 +94,18 @@ textarea {
   border-top: none;
 }
 
+.goback_btn{
+  padding: 5px 15px;
+  background: #15283c;
+  color: #fff;
+  cursor: pointer;
+}
+.view_button{
+  padding: 4px 10px;
+  background: #1c79db;
+  color: #ffff;
+}
+
 @keyframes customEnterOverlayAnimation {
     0% {
       transform: scale(0);

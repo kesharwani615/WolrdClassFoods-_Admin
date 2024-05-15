@@ -105,7 +105,7 @@ const UpdateFormModal = ({ inputName,formik, loading, onPatchValueHandler,curren
 
   return (
     <>
-      <FaEdit onClick={onClickHandler} style={{color:"green", cursor:"pointer", fontSize:"20px", marginRight:"4px"}} title="edit" />
+      <FaEdit onClick={onClickHandler} style={{color:"green", cursor:"pointer", fontSize:"20px", marginRight:"4px",marginLeft:"4px"}} title="edit" />
 
       <Modal
         open={open}

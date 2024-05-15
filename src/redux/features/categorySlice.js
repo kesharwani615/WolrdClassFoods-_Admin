@@ -1,11 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { addCategoryApiResponse,fetchCategoryApiResponse,updateCategoryApiResponse, deleteCategoryApiResponse,fetchSubCategoryApiResponse,addSubCategoryApiResponse, updateSubCategoryApiResponse, deleteSubCategoryApiResponse } from '../apiResponse';
+import { addCategoryApiResponse,fetchCategoryApiResponse,updateCategoryApiResponse, deleteCategoryApiResponse,fetchSubCategoryApiResponse,addSubCategoryApiResponse, updateSubCategoryApiResponse, deleteSubCategoryApiResponse, fetchSubCategoryByIdApiResponse } from '../apiResponse';
 
   export const categorySlice = createSlice({
     name:"category",
     initialState:{
         categoriesList:[],
         subCategoriesList:[],
+        subCategory:null,
         error:"",
         loading:false,
         isModalOpen:false,
@@ -239,7 +240,28 @@ import { addCategoryApiResponse,fetchCategoryApiResponse,updateCategoryApiRespon
             state.saveLoading = false;
         })
             
-        
+    //fetch singel sub category
+    .addCase(fetchSubCategoryByIdApiResponse.pending, (state, action) => {
+        state.message = "";
+        state.error = "";
+        state.loading = true;
+        state.isModalOpen = false;
+    })
+    .addCase(fetchSubCategoryByIdApiResponse.fulfilled, (state, action) => {
+        if(!!action.payload?.response?.success){
+            state.subCategory = action.payload?.response?.data;
+            state.message = action.payload?.response?.message;
+            state.error = "";
+            state.loading = false;
+        } else {
+            state.loading = false;
+        }
+    })
+    .addCase(fetchSubCategoryByIdApiResponse.rejected, (state, action) => {
+        state.message = "";
+        state.error = action.error.message;
+        state.loading = false;
+    })
           
     }
   })

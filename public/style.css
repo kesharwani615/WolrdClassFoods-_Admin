@@ -3108,7 +3108,7 @@ ul.labels-category li p {
 .contact_inner h3 {
     font-weight: 600;
     text-transform: none;
-    font-size: 20px;
+    font-size: 15px;
     margin-bottom: 10px;
     color: #455a64;
 }
@@ -3120,6 +3120,7 @@ ul.labels-category li p {
 
 .contact_inner p strong {
     font-weight: 600;
+    font-size: 15px;
 }
 
 .contact_inner .list-unstyled {
@@ -3135,9 +3136,8 @@ ul.labels-category li p {
 }
 
 .profile_contacts img {
-    border-radius: 100%;
-    border: 1px solid #ddd;
-    padding: 4px;
+    width: 100%;
+    height: 100%;
 }
 
 .bottom_list {

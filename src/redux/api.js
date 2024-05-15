@@ -50,6 +50,7 @@ const updateSubCategory = ({_id,...restFormData}) => {
   return API.patch(`/sub_category/update/${_id}`,formData);
 };
 const deleteSubCategory = (rowData) => API.delete(`/sub_category/delete/${rowData?._id}`,rowData);
+const fetchSubCategoryById = (rowData) => API.get(`/sub_category/get-sub-category/${rowData?._id}`);
 
 
 export {
@@ -69,7 +70,8 @@ export {
     fetchAllSubCategory,
     addSubCategory,
     updateSubCategory,
-    deleteSubCategory
+    deleteSubCategory,
+    fetchSubCategoryById
 }
 
 

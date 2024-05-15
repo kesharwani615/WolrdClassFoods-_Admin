@@ -177,6 +177,17 @@ const deleteSubCategoryApiResponse =  createAsyncThunk("/sub_category/delete/id/
     }
 });
 
+const fetchSubCategoryByIdApiResponse =  createAsyncThunk("/sub_/category/get-sub-category/", async({formData,toast})=>{
+    try{
+        const response=await api.fetchSubCategoryById(formData);
+        toast.success(response.data.message,{position:"top-right"});
+        return {response:response?.data}
+    }catch(error){
+        toast.error(`${error?.response?.data?.statusCode?.message} ${error?.response?.data?.message}`,{position:"top-right"});
+        throw error
+    }
+});
+
 
 
 
@@ -196,5 +207,6 @@ export {
     fetchSubCategoryApiResponse,
     addSubCategoryApiResponse,
     updateSubCategoryApiResponse,
-    deleteSubCategoryApiResponse
+    deleteSubCategoryApiResponse,
+    fetchSubCategoryByIdApiResponse
 }
