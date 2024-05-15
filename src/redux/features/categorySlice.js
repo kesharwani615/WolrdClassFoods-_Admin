@@ -1,10 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { addCategoryApiResponse,fetchCategoryApiResponse,updateCategoryApiResponse, deleteCategoryApiResponse } from '../apiResponse';
+import { addCategoryApiResponse,fetchCategoryApiResponse,updateCategoryApiResponse, deleteCategoryApiResponse,fetchSubCategoryApiResponse,addSubCategoryApiResponse, updateSubCategoryApiResponse, deleteSubCategoryApiResponse } from '../apiResponse';
 
   export const categorySlice = createSlice({
     name:"category",
     initialState:{
         categoriesList:[],
+        subCategoriesList:[],
         error:"",
         loading:false,
         isModalOpen:false,
@@ -125,6 +126,118 @@ import { addCategoryApiResponse,fetchCategoryApiResponse,updateCategoryApiRespon
                 state.isDeleteModalOpen = true;
                 state.saveLoading = false;
             })
+
+    //sub categories route slice
+    .addCase(addSubCategoryApiResponse.pending, (state, action) => {
+        state.message = "";
+        state.error = "";
+        state.loading = true;
+        state.isModalOpen = true;
+    })
+    .addCase(addSubCategoryApiResponse.fulfilled, (state, action) => {
+        if(!!action.payload?.response?.success){
+            state.subCategoriesList = [...state.subCategoriesList,action.payload?.response?.data];
+            state.message = action.payload?.response?.message;
+            state.error = "";
+            state.loading = false;
+            state.isModalOpen = false;
+        } else {
+            state.loading = false;
+            state.isModalOpen = true;
+        }
+    })
+    .addCase(addSubCategoryApiResponse.rejected, (state, action) => {
+        state.message = "";
+        state.error = action.error.message;
+        state.loading = false;
+        state.isModalOpen = true;
+    })
+       .addCase(fetchSubCategoryApiResponse.pending, (state, action) => {
+            state.message = "";
+            state.error = "";
+            state.loading = true;
+            state.isModalOpen = false;
+        })
+        .addCase(fetchSubCategoryApiResponse.fulfilled, (state, action) => {
+            if(!!action.payload?.response?.success){
+                state.subCategoriesList = action.payload?.response?.data;
+                state.message = action.payload?.response?.message;
+                state.error = "";
+                state.loading = false;
+            } else {
+                state.loading = false;
+            }
+        })
+        .addCase(fetchSubCategoryApiResponse.rejected, (state, action) => {
+            state.message = "";
+            state.error = action.error.message;
+            state.loading = false;
+        })
+      
+       .addCase(updateSubCategoryApiResponse.pending, (state, action) => {
+            state.message = "";
+            state.error = "";
+            state.loading = !true;
+            state.isUpdateModalOpen = true;
+            state.saveLoading = true;
+        })
+        .addCase(updateSubCategoryApiResponse.fulfilled, (state, action) => {
+            if(!!action.payload?.response?.success){
+                state.subCategoriesList = state.subCategoriesList.map((x)=> {
+                     if(x._id === action.payload?.response?.data?._id ){
+                        x.categoryId = action?.payload?.response?.data?.categoryId
+                        x.subCategoryName = action?.payload?.response?.data?.subCategoryName
+                        x.subCategoryDescription = action?.payload?.response?.data?.subCategoryDescription
+                        x.subCategoryImage = action?.payload?.response?.data?.subCategoryImage
+                        x.isActive = action?.payload?.response?.data?.isActive
+                        x.createdAt = action?.payload?.response?.data?.createdAt
+                     }
+                     return x;
+                })
+                state.message = action.payload?.response?.message;
+                state.error = "";
+                state.loading = false;
+                state.isUpdateModalOpen = false;
+            } else {
+                state.loading = false;
+                state.isUpdateModalOpen = true;
+            }
+            state.saveLoading = false;
+        })
+        .addCase(updateSubCategoryApiResponse.rejected, (state, action) => {
+            state.message = "";
+            state.error = action.error.message;
+            state.loading = false;
+            state.isUpdateModalOpen = true;
+            state.saveLoading = false;
+        })
+       .addCase(deleteSubCategoryApiResponse.pending, (state, action) => {
+            state.message = "";
+            state.error = "";
+            state.loading = !true;
+            state.isDeleteModalOpen = true;
+            state.saveLoading = true;
+        })
+        .addCase(deleteSubCategoryApiResponse.fulfilled, (state, action) => {
+            if(!!action.payload?.response?.success){
+                state.subCategoriesList = state.subCategoriesList.filter((x)=> String(x._id) !== String(action.payload?.response?.data?._id))
+                state.message = action.payload?.response?.message;
+                state.error = "";
+                state.loading = false;
+                state.isDeleteModalOpen = false;
+            } else {
+                state.loading = false;
+                state.isDeleteModalOpen = true;
+            }
+            state.saveLoading = false;
+        })
+        .addCase(deleteSubCategoryApiResponse.rejected, (state, action) => {
+            state.message = "";
+            state.error = action.error.message;
+            state.loading = false;
+            state.isDeleteModalOpen = true;
+            state.saveLoading = false;
+        })
             
         
           

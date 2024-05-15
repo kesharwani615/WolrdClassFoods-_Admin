@@ -106,7 +106,7 @@ const updateStatus = (formData) => {
                     <h2>Roles List</h2>
                   </div>
                   <div className="heading1 margin_0" style={{ float: "right" }}>
-                    <AddFormModal inputName={inputName} formik={formik} isOpen={isOpen} loading={loading} modalType="Role" />
+                    <AddFormModal inputName={inputName} formik={{formik}} isOpen={isOpen} loading={loading} modalType="Role" />
                   </div>
                 </div>
                 <div className="table_section padding_infor_info">
@@ -131,7 +131,7 @@ const updateStatus = (formData) => {
                               <td>{role?.isActive ? <span className="active__Status" onClick={()=>updateStatus({_id:role?._id,isActive:false})}>Active</span> : <span className="inactive__Status" onClick={()=>updateStatus({_id:role?._id,isActive:true})} >Inactive</span>}</td>
                               <td>{moment(role?.createdAt).format("ll")}</td>
                               <td>
-                              <UpdateFormModal inputName={inputName} formik={updateFormik} isOpen={isUpdateOpen} loading={saveLoading} currentValue={role} onPatchValueHandler={(value)=> onPatchValueHandler(value)} modalType="Role" />
+                              <UpdateFormModal inputName={inputName} formik={{formik:updateFormik}} isOpen={isUpdateOpen} loading={saveLoading} currentValue={role} onPatchValueHandler={(value)=> onPatchValueHandler(value)} modalType="Role" />
                               <DeleteFormModal handleDelete={handleDelete} itemId={{_id:role?._id}} isDeleteOpen={isDeleteOpen} loading={saveLoading} />
                               </td>
                             </tr>

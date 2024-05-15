@@ -5,6 +5,7 @@ import Profile from "../pages/profile/Profile";
 import Roles from "../pages/role/Roles";
 import Category from "../pages/category/Category";
 import Contact from "../pages/contact/Contact";
+import SubCategory from "../pages/category/SubCategory";
 
 
 export const routes = (isAuthenticated) => {
@@ -16,6 +17,7 @@ export const routes = (isAuthenticated) => {
         { path: '', element: <Dashboard /> },
         { path: '/roles', element: <Roles /> },
         { path: '/category', element: <Category /> },
+        { path: '/sub-category', element: <SubCategory /> },
         { path: '/contact', element: <Contact /> },
         { path: '/product', element: <Product /> },
         { path: '/profile', element: <Profile /> }

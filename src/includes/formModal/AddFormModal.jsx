@@ -9,15 +9,18 @@ const AddFormModal = ({ inputName,formik, loading,modalType, isOpen = false }) =
 
   
   useEffect(()=>{
-      console.log('isOpenisOpenisOpen.....',isOpen);
       setOpen(isOpen);
       if(!isOpen){
         setShowChooseImage([])
-        formik.resetForm();
+        formik.formik.resetForm();
       }
   },[isOpen])
 
-
+const selectOptionMap = (list) => {
+  return list?.map((item, index) => {
+    return (<> <option key={index} value={item?._id}>{item?.categoryName}</option> </>)
+  })
+};
 
 
 
@@ -33,14 +36,15 @@ const AddFormModal = ({ inputName,formik, loading,modalType, isOpen = false }) =
             <div className="form-group col-md-12" key={index}>
               
               {
-                (typevalue?.type === "email") ? (<><label htmlFor="descriptionText">{typevalue?.label}</label><input  type={typevalue?.type} name={typevalue?.keyName} className="form-control" {...formik.getFieldProps(typevalue?.keyName)}/> </>)
-               : (typevalue?.type === "number") ? (<><label htmlFor="descriptionText">{typevalue?.label}</label><input  type={typevalue?.type} name={typevalue?.keyName} className="form-control" {...formik.getFieldProps(typevalue?.keyName)}/> </>)
-               : (typevalue?.type === "text-area") ? (<><p><label htmlFor="descriptionText">{typevalue?.label}</label></p><textarea id="descriptionText" cols="120" {...formik.getFieldProps(typevalue?.keyName)}></textarea></>)
+                (typevalue?.type === "email") ? (<><label htmlFor="descriptionText">{typevalue?.label}</label><input  type={typevalue?.type} name={typevalue?.keyName} className="form-control" {...formik.formik.getFieldProps(typevalue?.keyName)}/> </>)
+               : (typevalue?.type === "number") ? (<><label htmlFor="descriptionText">{typevalue?.label}</label><input  type={typevalue?.type} name={typevalue?.keyName} className="form-control" {...formik.formik.getFieldProps(typevalue?.keyName)}/> </>)
+               : (typevalue?.type === "text-area") ? (<><p><label htmlFor="descriptionText">{typevalue?.label}</label></p><textarea id="descriptionText" cols="120" {...formik.formik.getFieldProps(typevalue?.keyName)}></textarea></>)
               : (typevalue?.type === "file") ? (<><label htmlFor="descriptionText">{typevalue?.label}</label><input type={typevalue?.type} name={typevalue?.keyName} className="form-control" onChange={(e) =>handleImageChange(e,typevalue?.keyName)} /> {(showChooseImage && showChooseImage.length) ? showChooseImage.map((imgUrl)=><img src={imgUrl} height={100} width={100} />) : ""} </>)
-              : <><label htmlFor="descriptionText">{typevalue?.label}</label><input  type={typevalue?.type} name={typevalue?.keyName} className="form-control" {...formik.getFieldProps(typevalue?.keyName)}
+              : (typevalue?.type === "select-options") ? (<><label htmlFor="descriptionText">{typevalue?.label}</label><select name={typevalue?.keyName} className="form-control" {...formik.formik.getFieldProps(typevalue?.keyName)}><option value="">select category</option>{selectOptionMap(formik?.list)}</select>  </>)
+              : <><label htmlFor="descriptionText">{typevalue?.label}</label><input  type={typevalue?.type} name={typevalue?.keyName} className="form-control" {...formik.formik.getFieldProps(typevalue?.keyName)}
               /> </>
               }
-              {inputError(formik, typevalue?.keyName)}
+              {inputError(formik.formik, typevalue?.keyName)}
             </div>
           ))
         );
@@ -51,21 +55,15 @@ const AddFormModal = ({ inputName,formik, loading,modalType, isOpen = false }) =
           (inputType).map((typevalue, index) => (
             <div className="form-group col-md-6" key={index}>
             {
-                (typevalue?.type === "email") ? (<><label htmlFor="descriptionText">{typevalue?.label}</label><input  type={typevalue?.type} name={typevalue?.keyName} className="form-control" {...formik.getFieldProps(typevalue?.keyName)}/> </>)
-               : (typevalue?.type === "number") ? (<><label htmlFor="descriptionText">{typevalue?.label}</label><input  type={typevalue?.type} name={typevalue?.keyName} className="form-control" {...formik.getFieldProps(typevalue?.keyName)}/> </>)
-               : (typevalue?.type === "text-area") ? (<><p><label htmlFor="descriptionText">{typevalue?.label}</label></p><textarea id="descriptionText" cols="120" {...formik.getFieldProps(typevalue?.keyName)}></textarea></>)
+                (typevalue?.type === "email") ? (<><label htmlFor="descriptionText">{typevalue?.label}</label><input  type={typevalue?.type} name={typevalue?.keyName} className="form-control" {...formik.formik.getFieldProps(typevalue?.keyName)}/> </>)
+               : (typevalue?.type === "number") ? (<><label htmlFor="descriptionText">{typevalue?.label}</label><input  type={typevalue?.type} name={typevalue?.keyName} className="form-control" {...formik.formik.getFieldProps(typevalue?.keyName)}/> </>)
+               : (typevalue?.type === "text-area") ? (<><p><label htmlFor="descriptionText">{typevalue?.label}</label></p><textarea id="descriptionText" cols="120" {...formik.formik.getFieldProps(typevalue?.keyName)}></textarea></>)
               : (typevalue?.type === "file") ? (<><label htmlFor="descriptionText">{typevalue?.label}</label><input type={typevalue?.type} name={typevalue?.keyName} className="form-control" onChange={(e) =>handleImageChange(e,typevalue?.keyName)} /> {(showChooseImage && showChooseImage.length) ? showChooseImage.map((imgUrl)=><img src={imgUrl} height={100} width={100} />) : ""} </>)
-              : <><label htmlFor="descriptionText">{typevalue?.label}</label><input  type={typevalue?.type} name={typevalue?.keyName} className="form-control" {...formik.getFieldProps(typevalue?.keyName)}
+               : (typevalue?.type === "select-options") ? (<><label htmlFor="descriptionText">{typevalue?.label}</label><select name={typevalue?.keyName} className="form-control" {...formik.formik.getFieldProps(typevalue?.keyName)}><option value="">select category</option>{selectOptionMap(formik?.list)}</select>  </>)
+              : <><label htmlFor="descriptionText">{typevalue?.label}</label><input  type={typevalue?.type} name={typevalue?.keyName} className="form-control" {...formik.formik.getFieldProps(typevalue?.keyName)}
               /> </>
               }
-
-
-              {/* <label htmlFor="inputEmail4">{typevalue?.label}</label>
-              {
-                (typevalue?.type === "file") ? <input type={typevalue?.type} name={typevalue?.keyName} className="form-control" onChange={(e) =>handleImageChange(e,typevalue?.keyName)} />
-              : <input type={typevalue?.type} name={typevalue?.keyName} className="form-control" {...formik.getFieldProps(typevalue?.keyName)} />
-              } */}
-              {inputError(formik, typevalue?.keyName)}
+              {inputError(formik.formik, typevalue?.keyName)}
             </div>
           ))
         );
@@ -76,14 +74,15 @@ const AddFormModal = ({ inputName,formik, loading,modalType, isOpen = false }) =
           (inputType).map((typevalue, index) => (
             <div className="form-group col-md-4" key={index}>
             {
-                (typevalue?.type === "email") ? (<><label htmlFor="descriptionText">{typevalue?.label}</label><input  type={typevalue?.type} name={typevalue?.keyName} className="form-control" {...formik.getFieldProps(typevalue?.keyName)}/> </>)
-               : (typevalue?.type === "number") ? (<><label htmlFor="descriptionText">{typevalue?.label}</label><input  type={typevalue?.type} name={typevalue?.keyName} className="form-control" {...formik.getFieldProps(typevalue?.keyName)}/> </>)
-               : (typevalue?.type === "text-area") ? (<><p><label htmlFor="descriptionText">{typevalue?.label}</label></p><textarea id="descriptionText" cols="120" {...formik.getFieldProps(typevalue?.keyName)}></textarea></>)
+                (typevalue?.type === "email") ? (<><label htmlFor="descriptionText">{typevalue?.label}</label><input  type={typevalue?.type} name={typevalue?.keyName} className="form-control" {...formik.formik.getFieldProps(typevalue?.keyName)}/> </>)
+               : (typevalue?.type === "number") ? (<><label htmlFor="descriptionText">{typevalue?.label}</label><input  type={typevalue?.type} name={typevalue?.keyName} className="form-control" {...formik.formik.getFieldProps(typevalue?.keyName)}/> </>)
+               : (typevalue?.type === "text-area") ? (<><p><label htmlFor="descriptionText">{typevalue?.label}</label></p><textarea id="descriptionText" cols="120" {...formik.formik.getFieldProps(typevalue?.keyName)}></textarea></>)
               : (typevalue?.type === "file") ? (<><label htmlFor="descriptionText">{typevalue?.label}</label><input type={typevalue?.type} name={typevalue?.keyName} className="form-control" onChange={(e) =>handleImageChange(e,typevalue?.keyName)} /> {(showChooseImage && showChooseImage.length) ? showChooseImage.map((imgUrl)=><img src={imgUrl} height={100} width={100} />) : ""} </>)
-              : <><label htmlFor="descriptionText">{typevalue?.label}</label><input  type={typevalue?.type} name={typevalue?.keyName} className="form-control" {...formik.getFieldProps(typevalue?.keyName)}
+              : (typevalue?.type === "select-options") ? (<><label htmlFor="descriptionText">{typevalue?.label}</label><select name={typevalue?.keyName} className="form-control" {...formik.formik.getFieldProps(typevalue?.keyName)}><option value="">select category</option>{selectOptionMap(formik?.list)}</select></>)
+              : <><label htmlFor="descriptionText">{typevalue?.label}</label><input  type={typevalue?.type} name={typevalue?.keyName} className="form-control" {...formik.formik.getFieldProps(typevalue?.keyName)}
               /> </>
               }
-              {inputError(formik, typevalue?.keyName)}
+              {inputError(formik.formik, typevalue?.keyName)}
             </div>
           ))
         );
@@ -95,7 +94,7 @@ const AddFormModal = ({ inputName,formik, loading,modalType, isOpen = false }) =
     const file = event.target.files[0];
     const imgUrl = convertFileToImageUrl(event);
       setShowChooseImage(imgUrl);
-    formik.setFieldValue(keyName, file);
+    formik.formik.setFieldValue(keyName, file);
   };
 
   return (
@@ -124,7 +123,7 @@ const AddFormModal = ({ inputName,formik, loading,modalType, isOpen = false }) =
           <div className="card-body">
             <h5 className="card-title">Add {modalType}</h5>
             {/* <h6 className="card-subtitle mb-2 text-muted">Card subtitle</h6> */}
-            <form onSubmit={formik.handleSubmit}>
+            <form onSubmit={formik.formik.handleSubmit}>
               <div className="form-row">
                     <>
                       {printsAllInputFields(inputName)}

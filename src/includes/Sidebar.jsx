@@ -65,6 +65,12 @@ const Sidebar = () => {
               </Link>
             </li>
             <li>
+              <Link to="/sub-category">
+                <FcNeutralTrading style={dashboardIconStyle} />
+                <span className="sidebar_tab__name_toggle">Sub Category</span>
+              </Link>
+            </li>
+            <li>
               <Link to="/contact">
                 <FcNeutralTrading style={dashboardIconStyle} />
                 <span className="sidebar_tab__name_toggle">Contact</span>

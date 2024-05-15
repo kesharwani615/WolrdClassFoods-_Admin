@@ -132,6 +132,52 @@ const fetchContactApiResponse =  createAsyncThunk("/contact/get-all-contacts/", 
 });
 
 
+// sub categories routes
+const fetchSubCategoryApiResponse =  createAsyncThunk("/sub_category/get-sub-categories/", async({search,toast})=>{
+    try{
+        const response=await api.fetchAllSubCategory(search);
+        toast.success(response.data.message,{position:"top-right"});
+        return {response:response?.data}
+    }catch(error){
+        toast.error(`${error?.response?.data?.statusCode?.message} ${error?.response?.data?.message}`,{position:"top-right"});
+        throw error
+    }
+});
+
+const addSubCategoryApiResponse =  createAsyncThunk("/sub_category/register/", async({formData,toast})=>{
+    try{
+        const response=await api.addSubCategory(formData);
+        toast.success(response.data.message,{position:"top-right"});
+        return {response:response?.data}
+    }catch(error){
+        toast.error(`${error?.response?.data?.statusCode?.message} ${error?.response?.data?.message}`,{position:"top-right"});
+        throw error
+    }
+});
+
+const updateSubCategoryApiResponse =  createAsyncThunk("/sub_category/update/", async({formData,toast})=>{
+    try{
+        const response= await api.updateSubCategory(formData);
+        toast.success(response.data.message,{position:"top-right"});
+        return {response:response?.data}
+    }catch(error){
+        toast.error(`${error?.response?.data?.statusCode?.message} ${error?.response?.data?.message}`,{position:"top-right"});
+        throw error
+    }
+});
+
+const deleteSubCategoryApiResponse =  createAsyncThunk("/sub_category/delete/id/", async({formData,toast})=>{
+    try{
+        const response=await api.deleteSubCategory(formData);
+        toast.success(response.data.message,{position:"top-right"});
+        return {response:response?.data}
+    }catch(error){
+        toast.error(`${error?.response?.data?.statusCode?.message} ${error?.response?.data?.message}`,{position:"top-right"});
+        throw error
+    }
+});
+
+
 
 
 
@@ -146,5 +192,9 @@ export {
     fetchCategoryApiResponse,
     updateCategoryApiResponse,
     deleteCategoryApiResponse,
-    fetchContactApiResponse
+    fetchContactApiResponse,
+    fetchSubCategoryApiResponse,
+    addSubCategoryApiResponse,
+    updateSubCategoryApiResponse,
+    deleteSubCategoryApiResponse
 }

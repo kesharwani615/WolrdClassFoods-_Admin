@@ -38,6 +38,19 @@ const fetchContact=(search)=>{
   return API.get(url);
 }
 
+//product sub categories routes
+const fetchAllSubCategory = (search) => {
+  let url = `/sub_category/get-sub-categories`;
+  if(search) url+=`?search=${search}`
+  return API.get(url);
+};
+const addSubCategory = (formData) => API.post("/sub_category/register",formData);
+const updateSubCategory = ({_id,...restFormData}) => {
+  const formData = createFormData(restFormData);
+  return API.patch(`/sub_category/update/${_id}`,formData);
+};
+const deleteSubCategory = (rowData) => API.delete(`/sub_category/delete/${rowData?._id}`,rowData);
+
 
 export {
   API,
@@ -52,7 +65,11 @@ export {
     fetchAllCategory,
     updateCategory,
     deleteCategory,
-    fetchContact
+    fetchContact,
+    fetchAllSubCategory,
+    addSubCategory,
+    updateSubCategory,
+    deleteSubCategory
 }
 
 
