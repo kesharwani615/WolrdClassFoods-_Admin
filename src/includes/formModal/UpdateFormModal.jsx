@@ -24,7 +24,7 @@ const UpdateFormModal = ({ inputName,formik, loading, onPatchValueHandler,curren
 
   const selectOptionMap = (list) => {
     return list?.map((item, index) => {
-      return (<> <option style={{cursor:"pointer"}} key={index} value={item?._id}>{item?.categoryName}</option> </>)
+      return (<option style={{cursor:"pointer"}} key={index} value={item?._id}>{item?.categoryName}</option>)
     })
   };
 

@@ -18,7 +18,7 @@ const AddFormModal = ({ inputName,formik, loading,modalType, isOpen = false }) =
 
 const selectOptionMap = (list) => {
   return list?.map((item, index) => {
-    return (<> <option key={index} value={item?._id}>{item?.categoryName}</option> </>)
+    return ( <option key={index} value={item?._id}>{item?.categoryName}</option>)
   })
 };
 

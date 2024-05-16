@@ -7,6 +7,7 @@ import Category from "../pages/category/Category";
 import Contact from "../pages/contact/Contact";
 import SubCategory from "../pages/category/SubCategory";
 import SubCategoryViewPage from "../pages/category/SubCategoryViewPage";
+import ContactDetails from "../pages/contact/ContactDetails";
 
 
 export const routes = (isAuthenticated) => {
@@ -21,6 +22,7 @@ export const routes = (isAuthenticated) => {
         { path: 'sub-category', element: <SubCategory /> },
         { path: 'sub-category/:id', element: <SubCategoryViewPage /> },
         { path: 'contact', element: <Contact /> },
+        { path: 'contact/:id', element: <ContactDetails /> },
         { path: 'product', element: <Product /> },
         { path: 'profile', element: <Profile /> }
       ],

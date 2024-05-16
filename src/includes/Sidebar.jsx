@@ -1,4 +1,4 @@
-import { FcCollect, FcNeutralTrading, FcPicture } from "react-icons/fc";
+import { FcConferenceCall, FcHome, FcPaid, FcPicture, FcTimeline, FcViewDetails, FcVoicePresentation } from "react-icons/fc";
 import { Link } from "react-router-dom";
 
 const dashboardIconStyle = {
@@ -47,47 +47,47 @@ const Sidebar = () => {
           <ul className="list-unstyled components">
             <li>
               <Link to="/">
-                <FcCollect style={dashboardIconStyle} />
+                <FcHome style={dashboardIconStyle} />
 
                 <span className="sidebar_tab__name_toggle">Dashboard</span>
               </Link>
             </li>
             <li>
               <Link to="/roles">
-                <FcNeutralTrading style={dashboardIconStyle} />
+                <FcConferenceCall style={dashboardIconStyle} />
                 <span className="sidebar_tab__name_toggle">Roles</span>
               </Link>
             </li>
             <li>
               <Link to="/category">
-                <FcNeutralTrading style={dashboardIconStyle} />
+                <FcViewDetails style={dashboardIconStyle} />
                 <span className="sidebar_tab__name_toggle">Category</span>
               </Link>
             </li>
             <li>
               <Link to="/sub-category">
-                <FcNeutralTrading style={dashboardIconStyle} />
+                <FcTimeline style={dashboardIconStyle} />
                 <span className="sidebar_tab__name_toggle">Sub Category</span>
               </Link>
             </li>
             <li>
               <Link to="/contact">
-                <FcNeutralTrading style={dashboardIconStyle} />
+                <FcVoicePresentation style={dashboardIconStyle} />
                 <span className="sidebar_tab__name_toggle">Contact</span>
               </Link>
             </li>
             <li>
               <Link to="/product">
-                <FcNeutralTrading style={dashboardIconStyle} />
+                <FcPaid style={dashboardIconStyle} />
                 <span className="sidebar_tab__name_toggle">Products</span>
               </Link>
             </li>
-            <li>
+            {/* <li>
             <Link to="/">
                 <FcPicture style={dashboardIconStyle} />
                 <span className="sidebar_tab__name_toggle">Tables</span>
               </Link>
-            </li>
+            </li> */}
           </ul>
         </div>
       </nav>

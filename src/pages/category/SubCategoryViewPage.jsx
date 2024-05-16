@@ -5,16 +5,16 @@ import { fetchSubCategoryByIdApiResponse } from '../../redux/apiResponse';
 import { toast } from "react-toastify";
 import ImagePopup from '../../includes/imagePopup/ImagePopup';
 import { AiOutlineArrowLeft } from 'react-icons/ai';
+import TableLoading from '../../includes/Loader/TableLoading';
 
 const SubCategoryViewPage = () => {
     const { id } = useParams();
     const dispatch = useDispatch();
     const navigation = useNavigate();
 
-  const { subCategory } = useSelector((state) => state.categories);
+  const { subCategory, loading } = useSelector((state) => state.categories);
 
   useEffect(() => {
-    console.log('iddddddddddddd',id);
     dispatch(fetchSubCategoryByIdApiResponse({formData:{_id:id}, toast }));
   }, []);
 
@@ -38,10 +38,10 @@ const goback = () =>{
                            <div className="white_shd full margin_bottom_30">
                               <div className="full graph_head">
                                  <div className="heading1 margin_0">
-                                    <h2>Sub Category</h2>
+                                    <h2>Sub Category Details</h2>
                                  </div>
                               </div>
-                              <div className="full price_table padding_infor_info">
+                              {!loading && <div className="full price_table padding_infor_info">
                                  <div className="row">
                                     <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 profile_details margin_bottom_30">
                                        <div className="contact_blog">
@@ -78,7 +78,8 @@ const goback = () =>{
                                        </div>
                                     </div>
                                  </div>
-                              </div>
+                              </div>}
+                              {loading && <TableLoading />}
                            </div>
                         </div>
                      </div>

@@ -17,6 +17,7 @@ const Category = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isUpdateOpen, setIsUpdateOpen] = useState(false);
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
+  const [expandedRow, setExpandedRow] = useState(null);
   const baseURL = `${import.meta.env.VITE_BASE_URL}/`;
 
   const { categoriesList,loading,isModalOpen,isUpdateModalOpen, isDeleteModalOpen, saveLoading } = useSelector((state) => state.categories);
@@ -97,6 +98,16 @@ const handleDelete = (formData) => {
 const updateStatus = (formData) => {
   dispatch(updateCategoryApiResponse({ formData, toast}))
 };
+
+
+// Function to toggle the expanded row
+const toggleExpandedRow = (index) => {
+  if (expandedRow === index) {
+    setExpandedRow(null); // If the same row is clicked again, close it
+  } else {
+    setExpandedRow(index); // Otherwise, expand the clicked row
+  }
+};
  
 
   return (
@@ -123,8 +134,8 @@ const updateStatus = (formData) => {
                 </div>
                 <div className="table_section padding_infor_info">
                   <div className="table-responsive-sm">
-                    <table className="table">
-                      <thead>
+                    <table className="table table-striped">
+                      <thead class="thead-dark">
                         <tr>
                           <th>SR.NO</th>
                           <th> Category Name</th>
@@ -136,17 +147,22 @@ const updateStatus = (formData) => {
                       </thead>
                       <tbody>
                         {!loading &&(categoriesList &&
-                          categoriesList?.length &&
+                          categoriesList?.length > 0 &&
                           categoriesList?.map((category, index) => (
                             <tr key={index}>
                               <td>{index + 1}</td>
                               <td>
-                                  <tr>
-                                    <td><ImagePopup images={[{src:`${import.meta.env.VITE_BASE_URL}/${category.categoryImage}`,alt:category?.categoryName}]} /></td>
-                                    <td>{category?.categoryName}</td>
-                                  </tr>
+                                  <>
+                                    <span style={{ marginRight: '10px' }}><ImagePopup images={[{src:`${import.meta.env.VITE_BASE_URL}/${category.categoryImage}`,alt:category?.categoryName}]} /></span>
+                                    <span>{category?.categoryName}</span>
+                                  </>
                               </td>
-                              <td>{category?.categoryDescription}</td>
+                              <td style={{ maxWidth: '200px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'wrap' }} title={category?.categoryDescription}>
+                                {expandedRow === index ? category?.categoryDescription : `${category?.categoryDescription.slice(0, 140)} ${category?.categoryDescription.length > 100 ? '...' : ''}`}
+                                {category?.categoryDescription.length > 100 && (
+                                  <a onClick={() => toggleExpandedRow(index)} style={{ textDecoration: 'underline', cursor: 'pointer',color:'blue' }} title="click here">{expandedRow === index ? 'View Less' : 'View More'}</a>
+                               )}
+                              </td>
                               <td>{moment(category?.createdAt).format("ll")}</td>
                               <td>{category?.isActive ? <span className="active__Status" onClick={()=>updateStatus({_id:category?._id,isActive:false})}>Active</span> : <span className="inactive__Status" onClick={()=>updateStatus({_id:category?._id,isActive:true})} >Inactive</span>}</td>
                               <td>

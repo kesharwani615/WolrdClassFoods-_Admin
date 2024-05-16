@@ -29,7 +29,7 @@ const Profile = () => {
               <div className="white_shd full margin_bottom_30">
                 <div className="full graph_head">
                   <div className="heading1 margin_0">
-                    <h2>User profile</h2>
+                    <h2>My profile</h2>
                   </div>
                 </div>
                 <div className="full price_table padding_infor_info">

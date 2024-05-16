@@ -37,6 +37,8 @@ const fetchContact=(search)=>{
   if(search) url+=`?search=${search}`
   return API.get(url);
 }
+const fetchContactById = (rowData) => API.get(`/contact/get-contact/${rowData?._id}`);
+
 
 //product sub categories routes
 const fetchAllSubCategory = (search) => {
@@ -67,6 +69,7 @@ export {
     updateCategory,
     deleteCategory,
     fetchContact,
+    fetchContactById,
     fetchAllSubCategory,
     addSubCategory,
     updateSubCategory,

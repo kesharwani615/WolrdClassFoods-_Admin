@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { logoutApiResponse } from "../redux/apiResponse";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
+import { MdViewHeadline } from "react-icons/md";
 
 const Header = () => {
 
@@ -43,7 +44,7 @@ const Header = () => {
         <nav className="navbar navbar-expand-lg navbar-light">
           <div className="full">
             <button type="button" onClick={toggleSidebar} id="sidebarCollapse" className="sidebar_toggle">
-            <AiOutlineAlignRight style={{color:"#ffff"}} />
+            <MdViewHeadline style={{color:"#ffff"}} />
             </button>
         
             <div className="right_topbar">

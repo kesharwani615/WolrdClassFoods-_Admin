@@ -13,6 +13,7 @@ import TableLoading from "../../includes/Loader/TableLoading";
 import ImagePopup from "../../includes/imagePopup/ImagePopup";
 import { Link } from "react-router-dom";
 import { MdOutlinePreview } from "react-icons/md";
+import { GrView } from "react-icons/gr";
 
 const SubCategory = () => {
   const dispatch = useDispatch();
@@ -131,8 +132,8 @@ const updateStatus = (formData) => {
                 </div>
                 <div className="table_section padding_infor_info">
                   <div className="table-responsive-sm">
-                    <table className="table">
-                      <thead>
+                    <table className="table table-striped">
+                      <thead class="thead-dark">
                         <tr>
                           <th>SR.NO</th>
                           <th> Category Name</th>
@@ -144,26 +145,26 @@ const updateStatus = (formData) => {
                       </thead>
                       <tbody>
                         {!loading &&(subCategoriesList &&
-                          subCategoriesList?.length &&
+                          subCategoriesList?.length > 0 &&
                           subCategoriesList?.map((category, index) => (
                             <tr key={index}>
                               <td>{index + 1}</td>
                               <td>
-                                  <tr>
-                                    <td><ImagePopup images={[{src:`${import.meta.env.VITE_BASE_URL}/${category?.categoryId?.categoryImage}`,alt:category?.categoryId?.categoryName}]} /></td>
-                                    <td>{category?.categoryId?.categoryName}</td>
-                                  </tr>
+                                  <>
+                                    <span style={{ marginRight: '10px' }}><ImagePopup images={[{src:`${import.meta.env.VITE_BASE_URL}/${category?.categoryId?.categoryImage}`,alt:category?.categoryId?.categoryName}]} /></span>
+                                    <span>{category?.categoryId?.categoryName}</span>
+                                  </>
                               </td>
                               <td>
-                                  <tr>
-                                    <td><ImagePopup images={[{src:`${import.meta.env.VITE_BASE_URL}/${category?.subCategoryImage}`,alt:category?.subCategoryName}]} /></td>
-                                    <td>{category?.subCategoryName}</td>
-                                  </tr>
+                                  <>
+                                    <span style={{ marginRight: '10px' }}><ImagePopup images={[{src:`${import.meta.env.VITE_BASE_URL}/${category?.subCategoryImage}`,alt:category?.subCategoryName}]} /></span>
+                                    <span>{category?.subCategoryName}</span>
+                                  </>
                               </td>
                               <td>{moment(category?.createdAt).format("ll")}</td>
                               <td>{category?.isActive ? <span className="active__Status" onClick={()=>updateStatus({_id:category?._id,isActive:false})}>Active</span> : <span className="inactive__Status" onClick={()=>updateStatus({_id:category?._id,isActive:true})} >Inactive</span>}</td>
                               <td>
-                              <Link to={'/sub-category/' + category?._id} className="view_button" title="view sub category details">Viwe </Link>
+                              <Link to={'/sub-category/' + category?._id} className="view_button" title="view sub category details"><GrView /> </Link>
                               <UpdateFormModal inputName={inputName} formik={{formik:updateFormik,list:categoriesList}} isOpen={isUpdateOpen} loading={saveLoading} currentValue={{...category,image:baseURL + "" + category?.subCategoryImage}} onPatchValueHandler={(value)=> onPatchValueHandler(value)} modalType="Sub Category" />
                               <DeleteFormModal handleDelete={handleDelete} itemId={{_id:category?._id}} isDeleteOpen={isDeleteOpen} loading={saveLoading} />
                               </td>

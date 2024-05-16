@@ -111,8 +111,8 @@ const updateStatus = (formData) => {
                 </div>
                 <div className="table_section padding_infor_info">
                   <div className="table-responsive-sm">
-                    <table className="table">
-                      <thead>
+                  <table className="table table-striped">
+                      <thead class="thead-dark">
                         <tr>
                           <th>SR. NO</th>
                           <th>Role</th>

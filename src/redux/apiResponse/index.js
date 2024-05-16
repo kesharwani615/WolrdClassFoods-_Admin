@@ -131,6 +131,17 @@ const fetchContactApiResponse =  createAsyncThunk("/contact/get-all-contacts/", 
     }
 });
 
+const fetchContactByIdApiResponse =  createAsyncThunk("/contact/get-contactById/", async({formData,toast})=>{
+    try{
+        const response=await api.fetchContactById(formData);
+        toast.success(response.data.message,{position:"top-right"});
+        return {response:response?.data}
+    }catch(error){
+        toast.error(`${error?.response?.data?.statusCode?.message} ${error?.response?.data?.message}`,{position:"top-right"});
+        throw error
+    }
+});
+
 
 // sub categories routes
 const fetchSubCategoryApiResponse =  createAsyncThunk("/sub_category/get-sub-categories/", async({search,toast})=>{
@@ -204,6 +215,7 @@ export {
     updateCategoryApiResponse,
     deleteCategoryApiResponse,
     fetchContactApiResponse,
+    fetchContactByIdApiResponse,
     fetchSubCategoryApiResponse,
     addSubCategoryApiResponse,
     updateSubCategoryApiResponse,

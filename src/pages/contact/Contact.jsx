@@ -5,10 +5,14 @@ import { toast } from "react-toastify";
 import moment from "moment";
 import { CirclesWithBar } from "react-loader-spinner";
 import TableLoading from "../../includes/Loader/TableLoading";
+import { GrView } from "react-icons/gr";
+import { Link } from "react-router-dom";
 
 
 const Contact = () => {
   const dispatch = useDispatch();
+  const [expandedRow, setExpandedRow] = useState(null);
+
 
   const { contactList,loading } = useSelector((state) => state.contactUs);
   const search = "";
@@ -17,7 +21,14 @@ const Contact = () => {
     dispatch(fetchContactApiResponse({search, toast }));
   }, []);
 
-
+// Function to toggle the expanded row
+const toggleExpandedRow = (index) => {
+  if (expandedRow === index) {
+    setExpandedRow(null); // If the same row is clicked again, close it
+  } else {
+    setExpandedRow(index); // Otherwise, expand the clicked row
+  }
+};
 
   return (
     <>
@@ -41,17 +52,18 @@ const Contact = () => {
                 </div>
                 <div className="table_section padding_infor_info">
                   <div className="table-responsive-sm">
-                    <table className="table">
-                      <thead>
+                    <table className="table table-striped">
+                      <thead class="thead-dark">
                         <tr>
                           <th>SR.NO</th>
                           <th>Name</th>
-                          <th>Email</th>
+                          {/* <th>Email</th> */}
                           <th>PhoneNumber</th>
                           <th>CompanyName</th>
                           <th>Subject</th>
-                          <th>Message</th>
+                          {/* <th>Message</th> */}
                           <th>Created At</th>
+                          <th>View</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -61,12 +73,19 @@ const Contact = () => {
                             <tr key={index}>
                               <td>{index + 1}</td>
                               <td>{contact?.conName}</td>
-                              <td>{contact?.conEmail}</td>
+                              {/* <td>{contact?.conEmail}</td> */}
                               <td>{contact?.conPhoneNumber}</td>
                               <td>{contact?.conCompanyName}</td>
-                              <td>{contact?.conSubject}</td>
-                              <td>{contact?.conMessage}</td>
+                              {/* <td>{contact?.conSubject}</td> */}
+                              <td style={{ maxWidth: '300px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'wrap' }} title={contact?.conSubject}>
+                                {expandedRow === index ? contact?.conSubject : `${contact?.conSubject.slice(0, 100)} ${contact?.conSubject.length > 100 ? '...' : ''}`}
+                                {contact?.conSubject.length > 100 && (
+                                  <a onClick={() => toggleExpandedRow(index)} style={{ textDecoration: 'underline', cursor: 'pointer',color:'blue' }} title="click here">{expandedRow === index ? 'View Less' : 'View More'}</a>
+                               )}
+                              </td>
+                              {/* <td>{contact?.conMessage}</td> */}
                               <td>{moment(contact?.createdAt).format("ll")}</td>
+                              <td title="view details"><Link to={'/contact/' + contact?._id} className="view_button" title="view sub category details"><GrView /> </Link></td>
                             </tr>
                           )))}
                       </tbody>

@@ -101,9 +101,9 @@ textarea {
   cursor: pointer;
 }
 .view_button{
-  padding: 4px 10px;
-  background: #1c79db;
-  color: #ffff;
+  color: #135bf5;
+  font-size: 18px;
+  cursor: pointer;
 }
 
 @keyframes customEnterOverlayAnimation {
