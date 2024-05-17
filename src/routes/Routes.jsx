@@ -8,6 +8,7 @@ import Contact from "../pages/contact/Contact";
 import SubCategory from "../pages/category/SubCategory";
 import SubCategoryViewPage from "../pages/category/SubCategoryViewPage";
 import ContactDetails from "../pages/contact/ContactDetails";
+import ProductDetails from "../pages/product/ProductDetails";
 
 
 export const routes = (isAuthenticated) => {
@@ -24,6 +25,7 @@ export const routes = (isAuthenticated) => {
         { path: 'contact', element: <Contact /> },
         { path: 'contact/:id', element: <ContactDetails /> },
         { path: 'product', element: <Product /> },
+        { path: 'product/:id', element: <ProductDetails /> },
         { path: 'profile', element: <Profile /> }
       ],
     },

@@ -20,7 +20,6 @@ import { loginApiResponse, logoutApiResponse } from '../apiResponse';
             .addCase(loginApiResponse.fulfilled, (state, action) => {
                 if(action.payload?.response?.statusCode === 200){
                     state.user = action.payload?.response?.data;
-                    console.log('/////////////ee',action.payload.isNavigate);
                     localStorage.setItem("world_class_user",JSON.stringify(action?.payload?.response?.data));
                     state.message = action.payload?.response?.message;
                     state.error = "";
@@ -28,15 +27,11 @@ import { loginApiResponse, logoutApiResponse } from '../apiResponse';
                     state.isNavigate = action.payload.isNavigate;
                 }else{
                     localStorage.setItem("world_class_user",null);
-                    state.loading = false;
-                    console.log('else');
-                    // window.location.href = 'http://127.0.0.1:5173/#/login'
-                    // window.location.replace('http://127.0.0.1:5173/#/login')
+                    state.loading = false;                   
                 }
             })
             .addCase(loginApiResponse.rejected, (state, action) => {
                 state.message = "";
-                console.log('errrrr',action.error);
                 state.error = action.error.message;
                 state.loading = false;
             })
@@ -48,7 +43,6 @@ import { loginApiResponse, logoutApiResponse } from '../apiResponse';
             .addCase(logoutApiResponse.fulfilled, (state, action) => {
                 if(action.payload?.response?.statusCode === 200){
                     state.user = action.payload?.response?.data;
-                    console.log('///logoutttt',action.payload.isNavigate);
                     localStorage.removeItem("world_class_user");
                     state.message = action.payload?.response?.message;
                     state.error = "";
@@ -60,7 +54,6 @@ import { loginApiResponse, logoutApiResponse } from '../apiResponse';
             })
             .addCase(logoutApiResponse.rejected, (state, action) => {
                 state.message = "";
-                console.log('errrrr',action.error);
                 state.error = action.error.message;
                 state.loading = false;
             })

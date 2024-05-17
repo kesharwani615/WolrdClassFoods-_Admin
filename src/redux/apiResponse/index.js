@@ -199,6 +199,61 @@ const fetchSubCategoryByIdApiResponse =  createAsyncThunk("/sub_/category/get-su
     }
 });
 
+const fetchAllProductsApiResponse =  createAsyncThunk("/fetch/All/Products/", async({search,toast})=>{
+    try{
+        const response=await api.fetchAllProducts(search);
+        toast.success(response.data.message,{position:"top-right"});
+        return {response:response?.data}
+    }catch(error){
+        toast.error(`${error?.response?.data?.statusCode?.message} ${error?.response?.data?.message}`,{position:"top-right"});
+        throw error
+    }
+});
+
+const addProductApiResponse =  createAsyncThunk("/product/register/", async({formData,toast})=>{
+    try{
+        const response=await api.addProduct(formData);
+        toast.success(response.data.message,{position:"top-right"});
+        return {response:response?.data}
+    }catch(error){
+        toast.error(`${error?.response?.data?.statusCode?.message} ${error?.response?.data?.message}`,{position:"top-right"});
+        throw error
+    }
+});
+
+const updateProductApiResponse =  createAsyncThunk("/product/update/", async({formData,toast})=>{
+    try{
+        const response= await api.updateproduct(formData);
+        toast.success(response.data.message,{position:"top-right"});
+        return {response:response?.data}
+    }catch(error){
+        toast.error(`${error?.response?.data?.statusCode?.message} ${error?.response?.data?.message}`,{position:"top-right"});
+        throw error
+    }
+});
+
+const deleteProductApiResponse =  createAsyncThunk("/product/delete/id/", async({formData,toast})=>{
+    try{
+        const response=await api.deleteProduct(formData);
+        toast.success(response.data.message,{position:"top-right"});
+        return {response:response?.data}
+    }catch(error){
+        toast.error(`${error?.response?.data?.statusCode?.message} ${error?.response?.data?.message}`,{position:"top-right"});
+        throw error
+    }
+});
+
+const fetchProductByIdApiResponse =  createAsyncThunk("/product//get-by-id/", async({formData,toast})=>{
+    try{
+        const response=await api.fetchProductById(formData);
+        toast.success(response.data.message,{position:"top-right"});
+        return {response:response?.data}
+    }catch(error){
+        toast.error(`${error?.response?.data?.statusCode?.message} ${error?.response?.data?.message}`,{position:"top-right"});
+        throw error
+    }
+});
+
 
 
 
@@ -220,5 +275,10 @@ export {
     addSubCategoryApiResponse,
     updateSubCategoryApiResponse,
     deleteSubCategoryApiResponse,
-    fetchSubCategoryByIdApiResponse
+    fetchSubCategoryByIdApiResponse,
+    fetchAllProductsApiResponse,
+    addProductApiResponse,
+    updateProductApiResponse,
+    deleteProductApiResponse,
+    fetchProductByIdApiResponse
 }

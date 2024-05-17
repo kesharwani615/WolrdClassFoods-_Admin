@@ -127,7 +127,7 @@ const updateStatus = (formData) => {
                     <h2>Sub Categories List</h2>
                   </div>
                   <div className="heading1 margin_0" style={{ float: "right" }}>
-                    <AddFormModal inputName={inputName} formik={{formik,list:categoriesList}} isOpen={isOpen} loading={loading} modalType="Sub Category" />
+                    <AddFormModal inputName={inputName} formik={{formik,list:categoriesList.map((x)=>({name:x.categoryName,id:x._id,...x}))}} isOpen={isOpen} loading={loading} modalType="Sub Category" />
                   </div>
                 </div>
                 <div className="table_section padding_infor_info">
@@ -165,7 +165,7 @@ const updateStatus = (formData) => {
                               <td>{category?.isActive ? <span className="active__Status" onClick={()=>updateStatus({_id:category?._id,isActive:false})}>Active</span> : <span className="inactive__Status" onClick={()=>updateStatus({_id:category?._id,isActive:true})} >Inactive</span>}</td>
                               <td>
                               <Link to={'/sub-category/' + category?._id} className="view_button" title="view sub category details"><GrView /> </Link>
-                              <UpdateFormModal inputName={inputName} formik={{formik:updateFormik,list:categoriesList}} isOpen={isUpdateOpen} loading={saveLoading} currentValue={{...category,image:baseURL + "" + category?.subCategoryImage}} onPatchValueHandler={(value)=> onPatchValueHandler(value)} modalType="Sub Category" />
+                              <UpdateFormModal inputName={inputName} formik={{formik:updateFormik,list:categoriesList.map((x)=>({name:x.categoryName,id:x._id,...x}))}} isOpen={isUpdateOpen} loading={saveLoading} currentValue={{...category,image:baseURL + "" + category?.subCategoryImage}} onPatchValueHandler={(value)=> onPatchValueHandler(value)} modalType="Sub Category" />
                               <DeleteFormModal handleDelete={handleDelete} itemId={{_id:category?._id}} isDeleteOpen={isDeleteOpen} loading={saveLoading} />
                               </td>
                             </tr>

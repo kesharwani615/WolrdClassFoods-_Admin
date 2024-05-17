@@ -55,6 +55,24 @@ const deleteSubCategory = (rowData) => API.delete(`/sub_category/delete/${rowDat
 const fetchSubCategoryById = (rowData) => API.get(`/sub_category/get-sub-category/${rowData?._id}`);
 
 
+
+//product routes
+const fetchAllProducts = (search) => {
+  let url = `/product/get-all-products`;
+  if(search) url+=`?search=${search}`
+  return API.get(url);
+};
+const addProduct = (formData) => API.post("/product/register",formData);
+const updateproduct = ({_id,...restFormData}) => {
+  const formData = createFormData(restFormData);
+  return API.patch(`/product/update/${_id}`,formData);
+};
+const fetchProductById = (rowData) => API.get(`/product/get-product/${rowData?._id}`);
+const deleteProduct = (rowData) => API.delete(`/product/delete/${rowData?._id}`,rowData);
+
+
+
+
 export {
   API,
     login,
@@ -74,7 +92,12 @@ export {
     addSubCategory,
     updateSubCategory,
     deleteSubCategory,
-    fetchSubCategoryById
+    fetchSubCategoryById,
+    fetchAllProducts,
+    addProduct,
+    updateproduct,
+    deleteProduct,
+    fetchProductById
 }
 
 
