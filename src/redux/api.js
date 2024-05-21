@@ -70,6 +70,13 @@ const updateproduct = ({_id,...restFormData}) => {
 const fetchProductById = (rowData) => API.get(`/product/get-product/${rowData?._id}`);
 const deleteProduct = (rowData) => API.delete(`/product/delete/${rowData?._id}`,rowData);
 
+//dashboard route
+const fetchDashboard = () => API.get("/user/dashboard"); 
+
+//users route
+const fetchUsers = () => API.get("/user/all-users"); 
+
+
 
 
 
@@ -97,7 +104,9 @@ export {
     addProduct,
     updateproduct,
     deleteProduct,
-    fetchProductById
+    fetchProductById,
+    fetchDashboard,
+    fetchUsers
 }
 
 

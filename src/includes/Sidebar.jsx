@@ -1,5 +1,5 @@
 import { FcConferenceCall, FcHome, FcPaid, FcPicture, FcTimeline, FcViewDetails, FcVoicePresentation } from "react-icons/fc";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 const dashboardIconStyle = {
   marginRight: "10px",
@@ -17,7 +17,7 @@ const Sidebar = () => {
               <a href="index.html">
                 <img
                   className="logo_icon img-responsive"
-                  src="images/logo/logo_icon.png"
+                  src="/logo/wrdlogo.png"
                   alt="#"
                 />
               </a>
@@ -26,61 +26,68 @@ const Sidebar = () => {
           <div className="sidebar_user_info">
             <div className="icon_setting"></div>
             <div className="user_profle_side">
-              {/* <div className="user_img">
+              <div className="user_img">
                 <img
                   className="img-responsive"
-                  src="images/layout_img/user_img.jpg"
+                  src="/logo/wrdlogo.png"
                   alt="#"
                 />
-              </div> */}
-              <div className="user_info">
-                <h6>WCGF</h6>
+              </div>
+              
+            </div>
+            <div className="user_info">
+                <h6>World Class Gourmet Foods</h6>
                 {/* <p>
                   <span className="online_animation"></span> Online
                 </p> */}
               </div>
-            </div>
           </div>
         </div>
         <div className="sidebar_blog_2">
           {/* <h4>World Class Gourmet Foods</h4> */}
           <ul className="list-unstyled components">
             <li>
-              <Link to="/">
+              <NavLink to="/" >
                 <FcHome style={dashboardIconStyle} />
 
                 <span className="sidebar_tab__name_toggle">Dashboard</span>
-              </Link>
+              </NavLink>
             </li>
             <li>
-              <Link to="/roles">
+              <NavLink to="/roles">
                 <FcConferenceCall style={dashboardIconStyle} />
                 <span className="sidebar_tab__name_toggle">Roles</span>
-              </Link>
+              </NavLink>
             </li>
             <li>
-              <Link to="/category">
+              <NavLink to="/category">
                 <FcViewDetails style={dashboardIconStyle} />
                 <span className="sidebar_tab__name_toggle">Category</span>
-              </Link>
+              </NavLink>
             </li>
             <li>
-              <Link to="/sub-category">
+              <NavLink to="/sub-category">
                 <FcTimeline style={dashboardIconStyle} />
                 <span className="sidebar_tab__name_toggle">Sub Category</span>
-              </Link>
+              </NavLink>
             </li>
             <li>
-              <Link to="/product">
+              <NavLink to="/product">
                 <FcPaid style={dashboardIconStyle} />
                 <span className="sidebar_tab__name_toggle">Products</span>
-              </Link>
+              </NavLink>
             </li>
             <li>
-              <Link to="/contact">
+              <NavLink to="/users">
+                <FcVoicePresentation style={dashboardIconStyle} />
+                <span className="sidebar_tab__name_toggle">Users</span>
+              </NavLink>
+            </li>
+            <li>
+              <NavLink to="/contact">
                 <FcVoicePresentation style={dashboardIconStyle} />
                 <span className="sidebar_tab__name_toggle">Contact</span>
-              </Link>
+              </NavLink>
             </li>
             {/* <li>
             <Link to="/">

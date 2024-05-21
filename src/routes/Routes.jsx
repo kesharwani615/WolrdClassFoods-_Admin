@@ -9,6 +9,7 @@ import SubCategory from "../pages/category/SubCategory";
 import SubCategoryViewPage from "../pages/category/SubCategoryViewPage";
 import ContactDetails from "../pages/contact/ContactDetails";
 import ProductDetails from "../pages/product/ProductDetails";
+import User from "../pages/user/User";
 
 
 export const routes = (isAuthenticated) => {
@@ -26,7 +27,8 @@ export const routes = (isAuthenticated) => {
         { path: 'contact/:id', element: <ContactDetails /> },
         { path: 'product', element: <Product /> },
         { path: 'product/:id', element: <ProductDetails /> },
-        { path: 'profile', element: <Profile /> }
+        { path: 'profile', element: <Profile /> },
+        { path: 'users', element: <User /> }
       ],
     },
     {

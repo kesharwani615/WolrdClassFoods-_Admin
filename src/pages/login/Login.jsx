@@ -5,7 +5,6 @@ import { loginApiResponse } from "../../redux/apiResponse";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { inputError } from "../../includes/formError/InputError";
-import { ColorRing } from "react-loader-spinner";
 
 const Login = () => {
   const dispatch = useDispatch();

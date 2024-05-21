@@ -626,7 +626,7 @@ a:focus {
     width: 100%;
     padding-left: 280px;
     z-index: 2;
-    background: #15283c;
+    background: #c90f00;
     top: 0;
     transition: ease all 0.3s;
     left: 0;
@@ -720,17 +720,15 @@ a:focus {
 .icon_info ul.user_profile_dd>li {
     width: auto;
     border-radius: 0;
-    background: #ff5722;
     margin: 0;
     padding: 12px 0 12px 20px;
-    height: auto;
 }
 
 .sidebar_toggle {
     border: none;
     padding: 14px 26px 14px;
     font-size: 21px;
-    background: #ff5722;
+    background: transparent;
     margin-right: 0;
     cursor: pointer;
     float: left;
@@ -823,12 +821,11 @@ span {
 #sidebar {
     min-width: 280px;
     max-width: 280px;
-    background-color: #15283c;
+    background-color: #c90f00;
     color: #fff;
     transition: all 0.3s;
     position: relative;
     z-index: 11;
-    box-shadow: 0 0 3px 0px rgba(0, 0, 0, 0.4);
     float: left;
     width: 100%;
     background-image: url('images/layout_img/pattern_h.png');
@@ -864,13 +861,23 @@ span {
     padding: 15px 25px;
     display: block;
     font-size: 14px;
-    color: rgba(255, 255, 255, 0.9);
+    color: #000;
     font-weight: 300;
 }
 
 #sidebar ul li a:hover,
 #sidebar ul li a:focus {
     color: rgba(255, 255, 255, 0.95);
+    background-color: #15283c;
+    border-top-right-radius: 25px; /* Adjust the radius value as needed */
+  border-bottom-right-radius: 25px;
+}
+
+#sidebar ul li a.active {
+    color: rgba(255, 255, 255, 0.95);
+    background-color: #15283c;
+    border-top-right-radius: 25px; /* Adjust the radius value as needed */
+  border-bottom-right-radius: 25px;
 }
 
 #sidebar ul.components li {
@@ -943,18 +950,18 @@ a[data-toggle="collapse"] {
 
 .topbar .navbar {
     padding: 0;
-    background: #15283c;
+    background: #c90f00;
     border: none;
     border-radius: 0;
 }
 
 .user_profle_side {
     display: flex;
+    justify-content: center;
 }
 
 .sidebar_user_info {
     padding: 24px 0;
-    background: #214162;
 }
 
 .user_img img {
@@ -964,6 +971,8 @@ a[data-toggle="collapse"] {
 .user_info {
     margin: 0 0 0 4px;
     padding-top: 0;
+    display: grid;
+    justify-content: center;
 }
 
 .online_animation {
@@ -1044,7 +1053,7 @@ a[data-toggle="collapse"] {
     margin: 0;
     text-align: center;
     padding: 8px 8px;
-    height: 60px;
+    height: 40px;
 }
 
 #sidebar h4 {

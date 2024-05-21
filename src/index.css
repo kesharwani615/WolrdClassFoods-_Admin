@@ -3,7 +3,7 @@
 }
 
 ::-webkit-scrollbar-track {
-    background: #ff5722; /* color of the track */
+    background: #15283c; /* color of the track */
 }
 ::-webkit-scrollbar-track:hover {
     background: #1ed085; /* color of the track */
@@ -138,6 +138,13 @@ div.dt-container select.dt-input {
   background-color: #15283c !important;
   color: #fff !important;
 
+}
+
+#sidebar ul.components li{
+  border-top-right-radius: 25px; /* Adjust the radius value as needed */
+  border-bottom-right-radius: 25px;
+  background-color: #fff;
+  margin-bottom: 5px;
 }
 
 @keyframes customEnterOverlayAnimation {

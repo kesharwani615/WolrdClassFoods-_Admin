@@ -262,6 +262,21 @@ const fetchProductByIdApiResponse =  createAsyncThunk("/product//get-by-id/", as
     }
 });
 
+const fetchDashboardApiResponse =  createAsyncThunk("/user/dashboard/", async({toast})=>{
+    try{
+        const response=await api.fetchDashboard();
+        if(toast){
+            toast.success(response.data.message,{position:"top-right"});
+            return {response:response?.data}
+        }
+    }catch(error){
+        if(toast){
+            toast.error(`${error?.response?.data?.statusCode?.message} ${error?.response?.data?.message}`,{position:"top-right"});
+        }
+        throw error
+    }
+});
+
 
 
 
@@ -288,5 +303,6 @@ export {
     addProductApiResponse,
     updateProductApiResponse,
     deleteProductApiResponse,
-    fetchProductByIdApiResponse
+    fetchProductByIdApiResponse,
+    fetchDashboardApiResponse
 }

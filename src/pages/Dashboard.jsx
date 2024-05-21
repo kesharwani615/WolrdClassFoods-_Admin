@@ -1,6 +1,19 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchDashboardApiResponse } from "../redux/apiResponse";
+import { toast } from "react-toastify";
+
 
 const Dashboard = () => {
+  const dispatch = useDispatch();
+  const { data,loading } = useSelector((state) => state.dashboard);
+
+  useEffect(()=>{
+    dispatch(
+      fetchDashboardApiResponse({ toast })
+    );
+  },[])
+
   return (
     <>
       <div className="midde_cont">
@@ -22,8 +35,8 @@ const Dashboard = () => {
                 </div>
                 <div className="counter_no">
                   <div>
-                    <p className="total_no">2500</p>
-                    <p className="head_couter">Welcome</p>
+                    <p className="total_no">{data?.user}</p>
+                    <p className="head_couter">User</p>
                   </div>
                 </div>
               </div>
@@ -37,8 +50,8 @@ const Dashboard = () => {
                 </div>
                 <div className="counter_no">
                   <div>
-                    <p className="total_no">123.50</p>
-                    <p className="head_couter">Average Time</p>
+                    <p className="total_no">{data?.roles}</p>
+                    <p className="head_couter">Roles</p>
                   </div>
                 </div>
               </div>
@@ -52,8 +65,8 @@ const Dashboard = () => {
                 </div>
                 <div className="counter_no">
                   <div>
-                    <p className="total_no">1,805</p>
-                    <p className="head_couter">Collections</p>
+                    <p className="total_no">{data?.product}</p>
+                    <p className="head_couter">Products</p>
                   </div>
                 </div>
               </div>
@@ -67,8 +80,38 @@ const Dashboard = () => {
                 </div>
                 <div className="counter_no">
                   <div>
-                    <p className="total_no">54</p>
-                    <p className="head_couter">Comments</p>
+                    <p className="total_no">{data?.productCategory}</p>
+                    <p className="head_couter">Category</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="col-md-6 col-lg-3">
+              <div className="full counter_section margin_bottom_30">
+                <div className="couter_icon">
+                  <div>
+                    <i className="fa fa-comments-o red_color"></i>
+                  </div>
+                </div>
+                <div className="counter_no">
+                  <div>
+                    <p className="total_no">{data?.productSubCategory}</p>
+                    <p className="head_couter">Sub Category</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="col-md-6 col-lg-3">
+              <div className="full counter_section margin_bottom_30">
+                <div className="couter_icon">
+                  <div>
+                    <i className="fa fa-comments-o red_color"></i>
+                  </div>
+                </div>
+                <div className="counter_no">
+                  <div>
+                    <p className="total_no">{data?.contacts}</p>
+                    <p className="head_couter">Contacts</p>
                   </div>
                 </div>
               </div>
