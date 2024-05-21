@@ -71,15 +71,15 @@ const Sidebar = () => {
               </Link>
             </li>
             <li>
-              <Link to="/contact">
-                <FcVoicePresentation style={dashboardIconStyle} />
-                <span className="sidebar_tab__name_toggle">Contact</span>
-              </Link>
-            </li>
-            <li>
               <Link to="/product">
                 <FcPaid style={dashboardIconStyle} />
                 <span className="sidebar_tab__name_toggle">Products</span>
+              </Link>
+            </li>
+            <li>
+              <Link to="/contact">
+                <FcVoicePresentation style={dashboardIconStyle} />
+                <span className="sidebar_tab__name_toggle">Contact</span>
               </Link>
             </li>
             {/* <li>

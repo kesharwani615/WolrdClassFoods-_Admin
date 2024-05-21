@@ -86,13 +86,17 @@ const addCategoryApiResponse =  createAsyncThunk("/category/register/", async({f
     }
 });
 
-const fetchCategoryApiResponse =  createAsyncThunk("/category/get-categories/", async({search,toast})=>{
+const fetchCategoryApiResponse =  createAsyncThunk("/category/get-categories/", async({search="",toast=null})=>{
     try{
         const response=await api.fetchAllCategory(search);
-        toast.success(response.data.message,{position:"top-right"});
+        if(toast){
+            toast.success(response.data.message,{position:"top-right"});
+        }
         return {response:response?.data}
     }catch(error){
-        toast.error(`${error?.response?.data?.statusCode?.message} ${error?.response?.data?.message}`,{position:"top-right"});
+        if(toast){
+            toast.error(`${error?.response?.data?.statusCode?.message} ${error?.response?.data?.message}`,{position:"top-right"});
+        }
         throw error
     }
 });
@@ -144,13 +148,17 @@ const fetchContactByIdApiResponse =  createAsyncThunk("/contact/get-contactById/
 
 
 // sub categories routes
-const fetchSubCategoryApiResponse =  createAsyncThunk("/sub_category/get-sub-categories/", async({search,toast})=>{
+const fetchSubCategoryApiResponse =  createAsyncThunk("/sub_category/get-sub-categories/", async({search="",toast=null})=>{
     try{
         const response=await api.fetchAllSubCategory(search);
-        toast.success(response.data.message,{position:"top-right"});
+        if(toast){
+            toast.success(response.data.message,{position:"top-right"});
+        }
         return {response:response?.data}
     }catch(error){
-        toast.error(`${error?.response?.data?.statusCode?.message} ${error?.response?.data?.message}`,{position:"top-right"});
+        if(toast){
+            toast.error(`${error?.response?.data?.statusCode?.message} ${error?.response?.data?.message}`,{position:"top-right"});
+        }
         throw error
     }
 });

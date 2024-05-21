@@ -115,6 +115,31 @@ textarea {
     align-items: center;
 }
 
+div.dt-container select.dt-input {
+  padding: 4px;
+  margin-right: 10px;
+}
+.dt-length label{
+  text-transform: capitalize;
+}
+
+.ksYCGh {
+  display: flex;
+  align-items: stretch;
+  width: 100%;
+  background-color: #15283c !important;
+  min-height: 52px;
+  border-bottom-width: 1px;
+  border-bottom-color: rgba(0, 0, 0, .12);
+  border-bottom-style: solid;
+  color: #fff !important;
+}
+.error_table_head{
+  background-color: #15283c !important;
+  color: #fff !important;
+
+}
+
 @keyframes customEnterOverlayAnimation {
     0% {
       transform: scale(0);
