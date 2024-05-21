@@ -277,6 +277,54 @@ const fetchDashboardApiResponse =  createAsyncThunk("/user/dashboard/", async({t
     }
 });
 
+const fetchUsersApiResponse =  createAsyncThunk("/user/all-users-fetch/", async({toast})=>{
+    try{
+        const response=await api.fetchUsers();
+        if(toast){
+            toast.success(response.data.message,{position:"top-right"});
+            return {response:response?.data}
+        }
+    }catch(error){
+        if(toast){
+            toast.error(`${error?.response?.data?.statusCode?.message} ${error?.response?.data?.message}`,{position:"top-right"});
+        }
+        throw error
+    }
+});
+
+const updateUserStatusApiResponse =  createAsyncThunk("/user/update/", async({formData,toast})=>{
+    try{
+        const response= await api.updateUserStatus(formData);
+        toast.success(response.data.message,{position:"top-right"});
+        return {response:response?.data}
+    }catch(error){
+        toast.error(`${error?.response?.data?.statusCode?.message} ${error?.response?.data?.message}`,{position:"top-right"});
+        throw error
+    }
+});
+
+const deleteUserApiResponse =  createAsyncThunk("/user/delete/id/", async({formData,toast})=>{
+    try{
+        const response=await api.deleteUser(formData);
+        toast.success(response.data.message,{position:"top-right"});
+        return {response:response?.data}
+    }catch(error){
+        toast.error(`${error?.response?.data?.statusCode?.message} ${error?.response?.data?.message}`,{position:"top-right"});
+        throw error
+    }
+});
+
+const changePasswordUserApiResponse =  createAsyncThunk("/user/change-password/", async({formData,toast})=>{
+    try{
+        const response=await api.changePasswordUser(formData);
+        toast.success(response.data.message,{position:"top-right"});
+        return {response:response?.data}
+    }catch(error){
+        toast.error(`${error?.response?.data?.statusCode?.message} ${error?.response?.data?.message}`,{position:"top-right"});
+        throw error
+    }
+});
+
 
 
 
@@ -304,5 +352,9 @@ export {
     updateProductApiResponse,
     deleteProductApiResponse,
     fetchProductByIdApiResponse,
-    fetchDashboardApiResponse
+    fetchDashboardApiResponse,
+    fetchUsersApiResponse,
+    updateUserStatusApiResponse,
+    deleteUserApiResponse,
+    changePasswordUserApiResponse
 }

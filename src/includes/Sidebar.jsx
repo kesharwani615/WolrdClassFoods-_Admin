@@ -1,4 +1,4 @@
-import { FcConferenceCall, FcHome, FcPaid, FcPicture, FcTimeline, FcViewDetails, FcVoicePresentation } from "react-icons/fc";
+import { FcBusinessman, FcConferenceCall, FcHome, FcPaid, FcPicture, FcTimeline, FcViewDetails, FcVoicePresentation } from "react-icons/fc";
 import { Link, NavLink } from "react-router-dom";
 
 const dashboardIconStyle = {
@@ -33,13 +33,9 @@ const Sidebar = () => {
                   alt="#"
                 />
               </div>
-              
             </div>
             <div className="user_info">
                 <h6>World Class Gourmet Foods</h6>
-                {/* <p>
-                  <span className="online_animation"></span> Online
-                </p> */}
               </div>
           </div>
         </div>
@@ -79,7 +75,7 @@ const Sidebar = () => {
             </li>
             <li>
               <NavLink to="/users">
-                <FcVoicePresentation style={dashboardIconStyle} />
+                <FcBusinessman style={dashboardIconStyle} />
                 <span className="sidebar_tab__name_toggle">Users</span>
               </NavLink>
             </li>
@@ -89,12 +85,6 @@ const Sidebar = () => {
                 <span className="sidebar_tab__name_toggle">Contact</span>
               </NavLink>
             </li>
-            {/* <li>
-            <Link to="/">
-                <FcPicture style={dashboardIconStyle} />
-                <span className="sidebar_tab__name_toggle">Tables</span>
-              </Link>
-            </li> */}
           </ul>
         </div>
       </nav>

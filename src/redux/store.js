@@ -5,6 +5,7 @@ import categoryReducer from "./features/categorySlice";
 import contactReducer from "./features/contactSlice";
 import productReducer from "./features/productSlice";
 import dashboardReducer from "./features/dashboardSlice";
+import usersReducer from "./features/usersSlice";
 
 export const store = configureStore({
   reducer: {
@@ -13,6 +14,7 @@ export const store = configureStore({
     categories:categoryReducer,
     contactUs:contactReducer,
     product:productReducer,
-    dashboard:dashboardReducer
+    dashboard:dashboardReducer,
+    users:usersReducer
   },
 })

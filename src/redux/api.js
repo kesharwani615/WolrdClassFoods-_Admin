@@ -75,6 +75,12 @@ const fetchDashboard = () => API.get("/user/dashboard");
 
 //users route
 const fetchUsers = () => API.get("/user/all-users"); 
+const updateUserStatus = ({_id,...formData}) => {
+  return API.patch(`/user/update-status/${_id}`,formData);
+};
+const deleteUser = (rowData) => API.delete(`/user/delete/${rowData?._id}`,rowData);
+const changePasswordUser = (rowData) => API.post(`/user/change-password`,rowData);
+
 
 
 
@@ -106,7 +112,10 @@ export {
     deleteProduct,
     fetchProductById,
     fetchDashboard,
-    fetchUsers
+    fetchUsers,
+    updateUserStatus,
+    deleteUser,
+    changePasswordUser
 }
 
 

@@ -10,6 +10,7 @@ import SubCategoryViewPage from "../pages/category/SubCategoryViewPage";
 import ContactDetails from "../pages/contact/ContactDetails";
 import ProductDetails from "../pages/product/ProductDetails";
 import User from "../pages/user/User";
+import ChangePassword from "../pages/profile/ChangePassword";
 
 
 export const routes = (isAuthenticated) => {
@@ -28,7 +29,8 @@ export const routes = (isAuthenticated) => {
         { path: 'product', element: <Product /> },
         { path: 'product/:id', element: <ProductDetails /> },
         { path: 'profile', element: <Profile /> },
-        { path: 'users', element: <User /> }
+        { path: 'users', element: <User /> },
+        { path: 'change-password', element: <ChangePassword /> }
       ],
     },
     {

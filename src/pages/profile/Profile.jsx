@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 const Profile = () => {
   const [user, setUser] = useState();
@@ -50,7 +51,7 @@ const Profile = () => {
                           <div className="contact_inner">
                             {user?.fullName ? (
                               <h3>
-                                {String(user?.fullName).toLocaleUpperCase()}
+                                Name: {String(user?.fullName).toLocaleUpperCase()}
                               </h3>
                             ) : (
                               ""
@@ -65,11 +66,21 @@ const Profile = () => {
                                 {String(user?.email).toLocaleLowerCase()}
                               </li>
                             </ul>
+                            
                           </div>
+                          
                         </div>
+                        
                       </div>
+                      
                     </div>
+                    
                   </div>
+                  <div className="password_edit_box">
+                   
+                  <h6></h6>
+                   <Link to="/change-password">Change Password</Link>
+                          </div>
                 </div>
               </div>
             </div>

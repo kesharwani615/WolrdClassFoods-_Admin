@@ -2,6 +2,12 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchDashboardApiResponse } from "../redux/apiResponse";
 import { toast } from "react-toastify";
+import { FcBusinessman, FcConferenceCall, FcPaid, FcTimeline, FcViewDetails, FcVoicePresentation } from "react-icons/fc";
+
+const dashboardIconStyle = {
+  marginRight: "10px",
+  fontSize: "50px",
+};
 
 
 const Dashboard = () => {
@@ -29,9 +35,7 @@ const Dashboard = () => {
             <div className="col-md-6 col-lg-3">
               <div className="full counter_section margin_bottom_30">
                 <div className="couter_icon">
-                  <div>
-                    <i className="fa fa-user yellow_color"></i>
-                  </div>
+                  <FcBusinessman style={dashboardIconStyle} />
                 </div>
                 <div className="counter_no">
                   <div>
@@ -44,9 +48,7 @@ const Dashboard = () => {
             <div className="col-md-6 col-lg-3">
               <div className="full counter_section margin_bottom_30">
                 <div className="couter_icon">
-                  <div>
-                    <i className="fa fa-clock-o blue1_color"></i>
-                  </div>
+                <FcConferenceCall style={dashboardIconStyle} />
                 </div>
                 <div className="counter_no">
                   <div>
@@ -59,9 +61,7 @@ const Dashboard = () => {
             <div className="col-md-6 col-lg-3">
               <div className="full counter_section margin_bottom_30">
                 <div className="couter_icon">
-                  <div>
-                    <i className="fa fa-cloud-download green_color"></i>
-                  </div>
+                <FcPaid style={dashboardIconStyle} />
                 </div>
                 <div className="counter_no">
                   <div>
@@ -74,9 +74,7 @@ const Dashboard = () => {
             <div className="col-md-6 col-lg-3">
               <div className="full counter_section margin_bottom_30">
                 <div className="couter_icon">
-                  <div>
-                    <i className="fa fa-comments-o red_color"></i>
-                  </div>
+                <FcViewDetails style={dashboardIconStyle} />
                 </div>
                 <div className="counter_no">
                   <div>
@@ -89,9 +87,7 @@ const Dashboard = () => {
             <div className="col-md-6 col-lg-3">
               <div className="full counter_section margin_bottom_30">
                 <div className="couter_icon">
-                  <div>
-                    <i className="fa fa-comments-o red_color"></i>
-                  </div>
+                <FcTimeline style={dashboardIconStyle} />
                 </div>
                 <div className="counter_no">
                   <div>
@@ -104,9 +100,7 @@ const Dashboard = () => {
             <div className="col-md-6 col-lg-3">
               <div className="full counter_section margin_bottom_30">
                 <div className="couter_icon">
-                  <div>
-                    <i className="fa fa-comments-o red_color"></i>
-                  </div>
+                <FcVoicePresentation style={dashboardIconStyle} />
                 </div>
                 <div className="counter_no">
                   <div>

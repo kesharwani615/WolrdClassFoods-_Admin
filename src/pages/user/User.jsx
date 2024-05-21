@@ -1,15 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addRoleApiResponse, rolesApiResponse, updateRoleApiResponse, deleteRoleApiResponse } from "../../redux/apiResponse";
+import {  deleteUserApiResponse, fetchUsersApiResponse, updateUserStatusApiResponse } from "../../redux/apiResponse";
 import { toast } from "react-toastify";
 import moment from "moment";
-import { useFormik } from "formik";
-import * as Yup from "yup";
-import AddFormModal from "../../includes/formModal/AddFormModal";
-import UpdateFormModal from "../../includes/formModal/UpdateFormModal";
 import DeleteFormModal from "../../includes/formModal/DeleteFormModal";
 import TableLoading from "../../includes/Loader/TableLoading";
 import DataTable from "react-data-table-component";
+import ImagePopup from "../../includes/imagePopup/ImagePopup";
 
 const User = () => {
   const dispatch = useDispatch();
@@ -18,8 +15,10 @@ const User = () => {
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
   const [filterText, setFilterText] = useState('');
   const [filteredRoles, setFilteredRoles] = useState([]);
+  const baseURL = `${import.meta.env.VITE_BASE_URL}/`;
 
-  const { roles, loading, isModalOpen, isUpdateModalOpen, isDeleteModalOpen, saveLoading } = useSelector((state) => state.role);
+
+  const { users, loading, isModalOpen, isUpdateModalOpen, isDeleteModalOpen, saveLoading } = useSelector((state) => state.users);
 
   useEffect(() => {
     setIsOpen(isModalOpen);
@@ -34,59 +33,27 @@ const User = () => {
   }, [isDeleteModalOpen]);
 
   useEffect(() => {
-    dispatch(rolesApiResponse({ toast }));
+    dispatch(fetchUsersApiResponse({ toast }));
   }, [dispatch]);
 
   useEffect(() => {
-    setFilteredRoles(roles);
-  }, [roles]);
+    setFilteredRoles(users);
+  }, [users]);
 
   useEffect(() => {
-    const filtered = roles.filter(role =>
-      role.roleName.toLowerCase().includes(filterText.toLowerCase())
+    const filtered = users.filter(role =>
+      role.fullName.toLowerCase().includes(filterText.toLowerCase())
     );
     setFilteredRoles(filtered);
-  }, [filterText, roles]);
+  }, [filterText, users]);
 
-  const inputName = [
-    [{ keyName: "roleName", type: "text", label: "Role" }],
-  ];
-
-  const formik = useFormik({
-    initialValues: {
-      roleName: ""
-    },
-    validationSchema: Yup.object({
-      roleName: Yup.string().max(50, "Must be 50 characters or less").required("Required")
-    }),
-    onSubmit: (formData) => {
-      dispatch(addRoleApiResponse({ formData, toast }));
-    },
-  });
-
-  const updateFormik = useFormik({
-    initialValues: {
-      _id: "",
-      roleName: ""
-    },
-    validationSchema: Yup.object({
-      roleName: Yup.string().max(50, "Must be 50 characters or less").required("Required")
-    }),
-    onSubmit: (formData) => {
-      dispatch(updateRoleApiResponse({ formData, toast }));
-    },
-  });
-
-  const onPatchValueHandler = (role) => {
-    updateFormik.setValues({ _id: role?._id, roleName: role?.roleName });
-  };
-
+ 
   const handleDelete = (formData) => {
-    dispatch(deleteRoleApiResponse({ formData, toast }));
+    dispatch(deleteUserApiResponse({ formData, toast }));
   };
 
   const updateStatus = (formData) => {
-    dispatch(updateRoleApiResponse({ formData, toast }));
+    dispatch(updateUserStatusApiResponse({ formData, toast }));
   };
 
   const columns = [
@@ -97,8 +64,16 @@ const User = () => {
       cell: (row, index) => <p>{index + 1}</p>
     },
     {
-      name: "Role",
-      cell: (role) => role?.roleName
+      name: "Name",
+      cell: (role) => role?.fullName
+    },
+    {
+      name: "Avatar",
+      cell: (user) => <ImagePopup images={[{ src: `${baseURL}${user?.avatar}`, alt: user?.fullName }]} />
+    },
+    {
+      name: "Email",
+      cell: (role) => role?.email
     },
     {
       name: "Status",
@@ -116,15 +91,6 @@ const User = () => {
       name: "Actions",
       cell: (role) => (
         <>
-          <UpdateFormModal
-            inputName={inputName}
-            formik={{ formik: updateFormik }}
-            isOpen={isUpdateOpen}
-            loading={saveLoading}
-            currentValue={role}
-            onPatchValueHandler={(value) => onPatchValueHandler(value)}
-            modalType="Role"
-          />
           <DeleteFormModal
             handleDelete={handleDelete}
             itemId={{ _id: role?._id }}
@@ -154,14 +120,11 @@ const User = () => {
                   <div className="heading1 margin_0">
                     <h2>Users List</h2>
                   </div>
-                  <div className="heading1 margin_0" style={{ float: "right" }}>
-                    <AddFormModal inputName={inputName} formik={{ formik }} isOpen={isOpen} loading={loading} modalType="Role" />
-                  </div>
                 </div>
                 <div className="table_section padding_infor_info">
                   <input
                     type="text"
-                    placeholder="Filter roles..."
+                    placeholder="Filter users..."
                     value={filterText}
                     onChange={e => setFilterText(e.target.value)}
                     style={{ marginBottom: '10px', padding: '5px', width: '200px' }}
@@ -178,14 +141,15 @@ const User = () => {
                             <thead className="error_table_head">
                               <tr>
                                 <th>SR. NO</th>
-                                <th>Role</th>
+                                <th>Name</th>
+                                <th>Email</th>
                                 <th>Status</th>
                                 <th>Created At</th>
                                 <th>Actions</th>
                               </tr>
                             </thead>
                           </table>
-                          <p>No roles found.</p>
+                          <p>No users found.</p>
                         </>
                       )}
                     </>
